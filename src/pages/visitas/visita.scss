@@ -1,0 +1,25 @@
+page-visita {
+
+  .p-invalid{
+    font-size: 0.8em;
+    color: gray;
+    margin: 3px 15px;
+  }
+
+  .ultima-visita {
+    p {
+      color: gray;
+      margin: 10px 14px 0px;
+    }
+    .emp-span {
+      margin: 24px;
+      font-size: x-large;
+    }
+    .nota-span {
+      margin: 2px 10px 10px 24px;
+      font-size: large;
+      display: block;
+    }
+  }
+
+}

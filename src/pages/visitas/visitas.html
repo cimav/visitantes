@@ -1,0 +1,39 @@
+<form #visitaForm="ngForm" (ngSubmit)="onSubmit($event.value)">
+        <div *ngIf="!agregandoVisita">
+          <ion-card *ngIf="!selectedItem.last_visita">
+            <h1>No hay Visitas</h1>
+            <button type="button" ion-button icon-left style="float: right;">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-card>
+          <ion-card *ngIf="selectedItem.last_visita">
+            <h1>{{selectedItem.last_visita.id}} -- {{selectedItem.last_visita.entrada}} --{{selectedItem.last_visita.nota}}</h1>
+            <button type="button" ion-button icon-left (click)="agregarVisita()" style="float: right;">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-card>
+        </div>
+
+
+  <ion-grid *ngIf="agregandoVisita">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Entrada</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY HH:mm" pickerFormat="MMM DD, YYYY h mm A" [(ngModel)]="selectedItem.last_visita.entrada" name="entrada"></ion-datetime>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Nota</ion-label>
+          <ion-input type="text" [(ngModel)]="selectedItem.last_visita.nota" name="nota"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <button type="button" ion-button (click)="close()" style="float: right;"><ion-icon name="close"></ion-icon></button>
+      <button type="submit" ion-button style="float: right;"><ion-icon name="checkmark"></ion-icon></button>
+    </ion-row>
+  </ion-grid>
+
+</form>

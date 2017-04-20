@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Visitantes
+    </ion-title>
+  </ion-navbar>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="visitantesCount <=0">
+    <h1 style="margin: auto; margin-top: 20px; width: 50%; padding: 10px;">No hay conexión a la DB</h1>
+  </div>
+
+  <!-- <div *ngIf="visitantesCount > 0"> -->
+
+  <ion-refresher (ionRefresh)="loadVisitantes($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let visitante of visitantes; let idx=index;"> <!-- (tap)="itemTapped($event, visitante)" -->
+
+      <ion-item>
+        <!--
+        <div style="float: left; margin-right: 10px; max-width: 180px;"><img #avatarImage id="avatarImage" style="margin: auto;border-radius: 6px;  "  [src]="getAvatarUrl(visitante)"></div>
+        -->
+
+        <ion-thumbnail item-left >
+          <img [src]="getAvatarUrl(visitante)" style="border-radius: 6px;">
+        </ion-thumbnail>
+
+        <div>
+          <div class="etiqueta">Nombre</div>
+          <div class="dato1">{{visitante.nombre}} {{visitante.apellido}}</div>
+          <div class="etiqueta">Empresa</div>
+          <div class="dato2">{{visitante.empresa}}</div>
+        </div>
+        <!--        <ion-icon mode="ios" name="arrow-forward" style="position: absolute; top:10px; right:10px; font-size: 24px; color: #626262;" role="img"></ion-icon> -->
+        <!--<h5 style="position: absolute; bottom: 16px; left:16px; font-size: 14px; color: #626262;">{{visitante.id}}</h5>-->
+      </ion-item>
+
+<!--
+      <ion-item-options side="left">
+        <ion-buttons right style="height:100%;">
+          <button ion-button color="danger" (click)="goEntrada(visitante, idx)" icon-left style="height:100%;">
+            Entrada
+            <ion-icon name="log-out"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-item-options>
+-->
+      <ion-item-options side="right" >
+        <ion-buttons right style="height:100%;">
+          <button ion-button color="secondary" (click)="goEdit(visitante, idx)" icon-left style="height:100%;">
+            Editar
+            <ion-icon name="create"></ion-icon> <!-- </ion-item> -->
+          </button>
+          <button ion-button color="danger" (click)="goEntrada(visitante, idx)" icon-left style="height:100%;">
+            Entrada
+            <ion-icon name="log-in" style="transform: rotate(180deg);" ></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab bottom="" right>
+    <button  *ngIf="visitantesCount > 0" type="button" ion-fab  (click)="goNew()"  >
+      <ion-icon name="add-circle" style="font-size: 3.4rem;"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-content>
+

@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-navbar hideBackButton > <!--  -->
+
+    <ion-buttons left>
+      <button ion-button (click)="goBack()">
+        <ion-icon name="arrow-round-back"
+
+                  class="back-button-icon icon icon-md back-button-icon-md ion-md-arrow-back" role="img"
+                  ng-reflect-klass="back-button-icon" ng-reflect-ng-class="back-button-icon-md" aria-label="arrow back"
+                  ng-reflect-name="md-arrow-back"
+
+        ></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>Visita (registrar visita)</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list
+    style="border: 1px solid #387ef5; margin: 14px 8px; border-radius: 4px; padding-right: 10px; position: relative;">
+
+    <ion-badge color="primary" style="position: relative; top: -10px; left: 10px;">Datos visitante</ion-badge>
+
+    <!--
+    <ion-list-header><ion-badge color="primary">Datos visitante</ion-badge></ion-list-header>
+    -->
+
+    <ion-grid>
+      <ion-row responsive-md>
+        <ion-col width-33 responsive-md>
+          <div style="display: -webkit-flex; -webkit-align-items: center; display: flex; align-items: center;">
+            <img #avatarImage id="avatarImage" style="margin: auto; border-radius: 20px;"
+                 [src]="getAvatarUrlRest()">
+          </div>
+        </ion-col>
+        <ion-col width-66 responsive-md>
+          <div class="etiqueta">Nombre</div>
+          <div class="dato1">{{visitante.nombre}} {{visitante.apellido}}</div>
+          <div class="etiqueta">Empresa</div>
+          <div class="dato2">{{visitante.empresa}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!--
+              <ion-item>
+                <ion-label color="primary" stacked>Nombre</ion-label>
+                <ion-input [(ngModel)]="visitante.nombre" disabled="true"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label color="primary" stacked>Apellido</ion-label>
+                <ion-input [(ngModel)]="visitante.apellido" disabled="true"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label color="primary" stacked>Empresa</ion-label>
+                <ion-input [(ngModel)]="visitante.empresa" disabled="true" placeholder="Empresa, escuela o lugar de procedencia"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label color="primary" stacked>Nota</ion-label>
+                <ion-textarea [(ngModel)]="visitante.nota" disabled="true" placeholder="Nota u observación"></ion-textarea>
+              </ion-item>
+    -->
+    <!--
+          <ion-item style="height: 70px; z-index: -10;">
+            <ion-fab right bottom  color="primary">
+              <button type="button" ion-fab (click)="goEdit()">
+                <ion-icon name="create"></ion-icon>
+              </button>
+            </ion-fab>
+          </ion-item>
+    -->
+    <ion-fab right bottom color="primary" style="position: absolute;">
+      <button type="button" ion-fab (click)="goEdit()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-fab>
+  </ion-list>
+
+  <div class="ultima-visita" *ngIf="visitante.visita.id>0 && visitante.visita.salida!=null" style="border: 1px solid #f53d3d; margin: 14px 8px 0; border-radius: 4px; padding-right: 10px; position: relative;">
+    <ion-badge color="danger" style="position: relative; top: -10px; left: 10px;">Ultima Visita</ion-badge>
+    <p>Empleado</p>
+    <span class="emp-span">{{visitante.visita.empleado.nombre}}</span>
+    <p>Entrada</p>
+    <span class="nota-span">{{visitante.visita.entrada}}</span>
+    <p>Salida</p>
+    <span  class="nota-span">{{visitante.visita.salida}}</span>
+    <p>Nota</p>
+    <span  class="nota-span">{{visitante.visita.nota}}</span>
+  </div>
+
+  <form *ngIf="visitante.visita.salida==null" [formGroup]="visitaForm" (ngSubmit)="onSubmit($event.value)">
+    <ion-list style="border: 1px solid #f53d3d; margin: 14px 8px 0;    border-radius: 4px; padding-right: 10px; position: relative;">
+      <ion-badge color="danger" style="position: relative; top: -10px; left: 10px;">Registro Visita</ion-badge>
+
+      <ion-item>
+        <ion-label stacked>Empleado</ion-label>
+        <ion-select [(ngModel)]="visitante.visita.empleado" formControlName="empleado" placeholder="Empleado a quien visita">
+          <ion-option *ngIf="visitante.visita.empleado" [value]="visitante.visita.empleado">{{visitante.visita.empleado.nombre}}</ion-option>   <!-- BUG si no lo pongo, no funciona -->
+          <ion-option *ngFor="let e of empleados" [value]="e">{{e.nombre}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p *ngIf="!visitaForm.controls.empleado.valid  && visitaForm.controls.empleado.dirty" class="p-invalid" >Requiere capturar nombre del empleado a visitar</p>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Motivo</ion-label>
+        <ion-textarea [(ngModel)]="visitante.visita.nota" formControlName="motivo" placeholder="Motivo de la visita, nota o comentario" ></ion-textarea>
+      </ion-item>
+      <p *ngIf="!visitaForm.controls.motivo.valid  && visitaForm.controls.motivo.dirty" class="p-invalid" >Requiere capturar motivo de la visita</p>
+
+      <ion-item no-lines style="height: 70px; z-index: -10;">
+      </ion-item>
+
+      <ion-fab right bottom color="danger" style="position: absolute;" *ngIf="visitante.visita.salida==null">
+        <button type="submit" ion-fab color="danger" [disabled]="visitaForm.pristine || visitaForm.invalid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+      </ion-fab>
+
+    </ion-list>
+  </form>
+
+  <div style="height: 40px; position: relative;">
+    <ion-buttons left bottom style="position: absolute; left:5px; right:5px;" *ngIf="visitante.visita.id>0 && visitante.visita.salida==null">
+      <button ion-button color="danger" (click)="goOutVisita()" [disabled]="visitaForm.invalid" icon-left>
+        Salida
+        <ion-icon name="log-out" style="transform: rotate(180deg);"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons right bottom style="position: absolute; left:5px; right:5px;" *ngIf="visitante.visita.id>0 && visitante.visita.salida!=null">
+      <button ion-button color="danger" icon-right (click)="goEnterVisita()">
+        <ion-icon name="log-in" style="transform: rotate(180deg);"></ion-icon>
+        Entrada
+      </button>
+    </ion-buttons>
+  </div>
+
+</ion-content>
+

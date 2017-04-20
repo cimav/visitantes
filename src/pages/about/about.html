@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Acerca de
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-img src="assets/images/logo-cimav-medio.png" style="background: white;
+    width: 500px;
+    height: 300px; position: absolute;
+    left: 50%;
+    margin-left: -250px;"
+           (tap)="tapEvent($event)"></ion-img>
+
+  <h1 *ngIf="cont>6">23</h1>
+
+</ion-content>

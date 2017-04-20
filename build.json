@@ -1,0 +1,18 @@
+{
+  "android": {
+    "debug": {
+      "keystore": "caseta.keystore",
+      "storePassword": "caseta",
+      "alias": "caseta",
+      "password" : "caseta",
+      "keystoreType": ""
+    },
+    "release": {
+      "keystore": "caseta.keystore",
+      "storePassword": "caseta",
+      "alias": "caseta",
+      "password" : "caseta",
+      "keystoreType": ""
+    }
+  }
+}

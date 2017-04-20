@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar hideBackButton >
+<!--     -->
+
+    <ion-buttons left>
+      <button ion-button (click)="goBackToVisitantes()">
+        <ion-icon  name="arrow-round-back"
+
+                   class="back-button-icon icon icon-md back-button-icon-md ion-md-arrow-back" role="img" ng-reflect-klass="back-button-icon" ng-reflect-ng-class="back-button-icon-md" aria-label="arrow back" ng-reflect-name="md-arrow-back"
+
+        ></ion-icon> <!--Regresar-->
+      </button>
+    </ion-buttons>
+
+    <ion-title >Visitante <!--(Editar/Crear)--></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <form  [formGroup]="visitanteForm" (ngSubmit)="onSubmit($event.value)" > <!-- #visitanteForm="ngForm" -->
+
+    <ion-list>
+      <ion-list-header>
+        <ion-badge color="primary">Datos visitante</ion-badge>
+        <ion-badge color="primary" *ngIf="!visitante.id">Nuevo</ion-badge>
+        <ion-badge color="primary" *ngIf="visitante.id && visitanteForm.dirty">Edición</ion-badge>
+      </ion-list-header>
+
+      <!--
+      <div style="display: -webkit-flex; -webkit-align-items: center; display: flex; align-items: center;">
+-->
+
+      <ion-item>
+        <div style="align-items: center;" [style.display]="showImagen()">
+          <img #avatarImage id="avatarImage" style="margin: auto;  border-radius: 10px; border: 4px solid #32db64;" [src]="getAvatarUrlRest()">
+          <ion-fab right bottom><button type="button" ion-fab  (click)="openCamera()"><ion-icon name="reverse-camera" ></ion-icon></button></ion-fab>
+        </div>
+
+        <div  style="align-items: center;"  [style.display]="showCanvas()" > <!-- -->
+          <canvas #canvas id="canvas" width="300" height="300" style="margin: auto;  border-radius: 10px; border: 4px solid yellow; " ></canvas>
+          <ion-fab right bottom><button type="button" ion-fab (click)="openCamera()"><ion-icon name="reverse-camera" ></ion-icon></button></ion-fab>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" floating>Nombre</ion-label>
+        <ion-input type="text" [(ngModel)]="visitante.nombre"  formControlName="nombre"  ></ion-input>
+      </ion-item>
+        <p *ngIf="!visitanteForm.controls.nombre.valid  && visitanteForm.controls.nombre.dirty" class="p-invalid" >Debe capturar el Nombre. Solo letras.</p>
+      <ion-item>
+        <ion-label color="primary" floating>Apellido</ion-label>
+        <ion-input type="text" [(ngModel)]="visitante.apellido" formControlName="apellido" ></ion-input>
+      </ion-item>
+      <p *ngIf="!visitanteForm.controls.apellido.valid  && visitanteForm.controls.apellido.dirty" class="p-invalid" >Debe capturar el Apellido. Solo letras.</p>
+      <ion-item>
+        <ion-label color="primary" floating>Empresa</ion-label>
+        <ion-input type="text" [(ngModel)]="visitante.empresa" formControlName="empresa" placeholder="Empresa, escuela o lugar de procedencia"></ion-input>
+      </ion-item>
+      <p *ngIf="!visitanteForm.controls.empresa.valid  && visitanteForm.controls.empresa.dirty" class="p-invalid" >Debe capturar la Empresa o lugar de procedencia</p>
+      <ion-item>
+        <ion-label color="primary" floating>Nota</ion-label>
+        <ion-textarea type="text" [(ngModel)]="visitante.nota" formControlName="nota" placeholder="Nota u observación"></ion-textarea>
+      </ion-item>
+
+      <ion-item style="height: 70px;" >
+        <ion-fab right bottom  color="primary">
+          <button type="submit" ion-fab [disabled]="visitanteForm.pristine || visitanteForm.invalid">
+            <ion-icon name="checkmark"></ion-icon>
+          </button>
+        </ion-fab>
+      </ion-item>
+    </ion-list>
+
+  </form>
+
+
+</ion-content>

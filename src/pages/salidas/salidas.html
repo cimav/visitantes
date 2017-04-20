@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Salidas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let visita of visitas">
+
+      <ion-item>
+
+          <!--
+          <div style="float: left; margin-right: 10px; max-width: 180px;"><img #avatarImage id="avatarImage" style="margin: auto;border-radius: 6px;  " [src]="getAvatarUrl(visita.visitante)"></div>
+          -->
+
+          <ion-thumbnail item-left >
+            <img [src]="getAvatarUrl(visita.visitante)" style="border-radius: 6px;">
+          </ion-thumbnail>
+
+          <div>
+            <div class="etiqueta">Nombre</div>
+            <div class="dato1">{{visita.visitante.nombre}} {{visita.visitante.apellido}}</div>
+            <div class="etiqueta">Empresa</div>
+            <div class="dato2">{{visita.visitante.empresa}}</div>
+              <div class="etiqueta">Visita a</div>
+              <div class="dato2">{{visita.empleado.nombre}}</div>
+              <div class="etiqueta">Entrada</div>
+              <div class="dato2">{{visita.entrada | date: 'medium'}}</div>
+          </div>
+          <!--<h5 style="position: absolute; top: 16px; left:16px; font-size: 14px; color: #626262;">{{visita.id}}</h5>-->
+
+      </ion-item>
+
+      <ion-item-options side="left">
+        <ion-buttons right style="height:100%;">
+          <button ion-button color="danger" (click)="darSalida(visita)" icon-left style="height:100%;">
+            Salida
+            <ion-icon name="log-out" style="transform: rotate(180deg);"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-content>
+

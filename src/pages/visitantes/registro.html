@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-navbar hideBackButton >
+    <!--     -->
+
+    <ion-buttons left>
+      <button ion-button (click)="goDismiss()">
+        <ion-icon  name="arrow-round-back"
+
+                   class="back-button-icon icon icon-md back-button-icon-md ion-md-arrow-back" role="img" ng-reflect-klass="back-button-icon" ng-reflect-ng-class="back-button-icon-md" aria-label="arrow back" ng-reflect-name="md-arrow-back"
+
+        ></ion-icon> <!--Regresar-->
+      </button>
+    </ion-buttons>
+
+    <ion-title >Registro visita</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item *ngIf="visitante.visita == null">
+    <h1>Cargando visitante...</h1>
+  </ion-item>
+
+  <form *ngIf="visitante.visita" [formGroup]="visitaForm" > <!-- (ngSubmit)="onSubmit($event.value)" -->
+    <ion-list style="margin: 14px 8px 0; padding-right: 10px; position: relative;"> <!-- #f53d3d -->
+
+      <ion-item>
+        <ion-avatar item-left><img [src]="getAvatarUrl(visitante)"></ion-avatar>
+        <h2>{{visitante.nombre}}</h2>
+        <p>{{visitante.empresa}}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Empleado</ion-label>
+        <ion-select [(ngModel)]="visitante.visita.empleado" formControlName="empleado" placeholder="Empleado a quien visita">
+          <ion-option *ngIf="visitante.visita.empleado" [value]="visitante.visita.empleado">{{visitante.visita.empleado.nombre}}</ion-option>   <!-- BUG si no lo pongo, no funciona -->
+          <ion-option *ngFor="let e of empleados" [value]="e">{{e.nombre}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p *ngIf="!visitaForm.controls.empleado.valid  && visitaForm.controls.empleado.dirty" class="p-invalid" >Requiere capturar nombre del empleado a visitar</p>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Motivo</ion-label>
+        <ion-textarea [(ngModel)]="visitante.visita.nota" formControlName="motivo" placeholder="Motivo de la visita, nota o comentario" ></ion-textarea>
+      </ion-item>
+      <p *ngIf="!visitaForm.controls.motivo.valid  && visitaForm.controls.motivo.dirty" class="p-invalid" >Requiere capturar motivo de la visita</p>
+
+      <ion-item no-lines style="height: 70px; z-index: -10;">
+      </ion-item>
+
+      <!--
+      <ion-fab right bottom color="danger" *ngIf="visitante.visita.salida==null" style="position: absolute;">
+        <button type="submit" ion-fab color="danger" [disabled]="visitaForm.pristine || visitaForm.invalid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+      </ion-fab>
+      -->
+
+    </ion-list>
+  </form>
+
+<!--  <div *ngIf="visitante.visita" style="height: 40px; position: relative;">  -->
+  <!--
+  <ion-buttons left bottom style="position: absolute; left:5px; right:5px;" *ngIf="visitante.visita && visitante.visita.id>0 && visitante.visita.salida==null">
+    <button ion-button color="danger" (click)="darSalida(visitante)" [disabled]="visitaForm.invalid" icon-left>
+      Salida
+      <ion-icon name="log-out" style="transform: rotate(180deg);"></ion-icon>
+    </button>
+  </ion-buttons>
+  -->
+    <ion-buttons right bottom style="position: absolute; bottom:5px; right:5px;"  *ngIf="visitante.visita && !(visitante.visita.id>0)"> <!-- *ngIf="visitante.visita && visitante.visita.salida!=null && visitante.visita.id>0 -->
+      <button ion-button color="default" icon-right (click)="darEntrada()" [disabled]="visitaForm.pristine || visitaForm.invalid"> <!--   (click)="visitaForm.ngSubmit.emit(visitaForm);"  -->
+        <ion-icon name="log-in" style="transform: rotate(180deg);"></ion-icon>
+        Entrada
+      </button>
+    </ion-buttons>
+
+<!--  </div>  -->
+
+</ion-content>
