@@ -16,7 +16,7 @@ import {FormGroup, Validator, Validators, FormBuilder} from "@angular/forms";
 })
 export class VisitaPage {
 
-  private rest: string = 'http://10.0.0.27:3003/';
+  //private rest: string = 'http://10.0.0.27:3003/';
 
   visitante: Visitante;
   empleados: Empleado[];
@@ -109,7 +109,7 @@ export class VisitaPage {
   }
 
   getAvatarUrlRest() {
-    let src = "http://10.0.0.27:3003/visitantes/avatar/" + this.visitante.id + "?c=" + this.visitante.random_num;
+    let src =  this.dataService.host() + "/visitantes/avatar/" + this.visitante.id + "?c=" + this.visitante.random_num;
     return src;
   }
 

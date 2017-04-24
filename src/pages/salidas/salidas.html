@@ -4,6 +4,7 @@
       Salidas
     </ion-title>
   </ion-navbar>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
 </ion-header>
 
 <ion-content>
@@ -21,8 +22,9 @@
           <div style="float: left; margin-right: 10px; max-width: 180px;"><img #avatarImage id="avatarImage" style="margin: auto;border-radius: 6px;  " [src]="getAvatarUrl(visita.visitante)"></div>
           -->
 
-          <ion-thumbnail item-left >
+          <ion-thumbnail item-left>
             <img [src]="getAvatarUrl(visita.visitante)" style="border-radius: 6px;">
+            <ion-badge style="margin-top: 3px;margin-left: 5px;">{{visita.gafete}}</ion-badge>
           </ion-thumbnail>
 
           <div>
@@ -30,10 +32,10 @@
             <div class="dato1">{{visita.visitante.nombre}} {{visita.visitante.apellido}}</div>
             <div class="etiqueta">Empresa</div>
             <div class="dato2">{{visita.visitante.empresa}}</div>
-              <div class="etiqueta">Visita a</div>
-              <div class="dato2">{{visita.empleado.nombre}}</div>
-              <div class="etiqueta">Entrada</div>
-              <div class="dato2">{{visita.entrada | date: 'medium'}}</div>
+            <div class="etiqueta">Visita a</div>
+            <div class="dato2">{{visita.empleado.nombre}}</div>
+            <div class="etiqueta">Entrada</div>
+            <div class="dato2">{{visita.entrada | date: 'medium'}}</div>
           </div>
           <!--<h5 style="position: absolute; top: 16px; left:16px; font-size: 14px; color: #626262;">{{visita.id}}</h5>-->
 

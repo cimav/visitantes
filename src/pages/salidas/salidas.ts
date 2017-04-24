@@ -69,7 +69,7 @@ export class SalidasPage {
     if (isUndefined(vis.random_num)) {
       vis.random_num = Math.random();
     }
-    return "http://10.0.0.27:3003/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
+    return  this.dataService.host() + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
   }
 
   presentLoadingDefault(start: boolean) {
@@ -90,6 +90,11 @@ export class SalidasPage {
       position: pos
     });
     toast.present();
+  }
+
+  setFilteredItems() {
+    console.log(this.visitas);
+    this.visitas = this.dataService.filterVisitantesAdentro(this.searchTerm);
   }
 
 }

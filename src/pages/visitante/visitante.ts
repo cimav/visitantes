@@ -39,7 +39,8 @@ export class VisitantePage implements AfterViewInit {
       nombre: ['', Validators.compose([Validators.maxLength(40), Validators.required])],
       apellido: ['', Validators.compose([Validators.maxLength(40), Validators.required])], //Validators.pattern('[a-zA-Z ñáéíóúüÑÁÉÍÓÚÜ]*'),
       empresa: ['', Validators.required],
-      nota: ['']
+      nota: [''],
+      tipo: ['']
     });
 
     platform.ready().then(() => {
@@ -182,7 +183,7 @@ export class VisitantePage implements AfterViewInit {
   }
 
   getAvatarUrlRest() {
-    let src = "http://10.0.0.27:3003/visitantes/avatar/" + this.visitante.id + "?c=" + this.visitante.random_num;
+    let src = this.dataService.host() + "/visitantes/avatar/" + this.visitante.id + "?c=" + this.visitante.random_num;
     return src;
   }
 

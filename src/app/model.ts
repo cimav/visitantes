@@ -7,11 +7,13 @@ export class Visitante {
   nota: string;
   empresa: string;
   random_num: number;
+  tipo: number;
   constructor(_apellido: string, _nombre: string, _avatar: string) {
     this.apellido = _apellido;
     this.nombre = _nombre;
     this.avatar = _avatar;
     this.random_num = 0;
+    this.tipo = 0;
   }
 
   visita: Visita;
@@ -24,6 +26,7 @@ export class Visita {
   entrada: Date;
   salida: Date;
   nota: string;
+  gafete: string;
   constructor(visitante_id: number) {
     this.visitante_id = visitante_id;
   }
@@ -49,4 +52,14 @@ export class CameraData {
     this.base64 = base64;
   }
 }
+
+export class TipoEmpleado {
+  id: number;
+  text: string;
+  constructor(id: number, text: string) {
+    this.id = id;
+    this.text = text;
+  }
+}
+
 

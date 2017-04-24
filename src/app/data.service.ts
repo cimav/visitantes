@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import {Observable} from 'rxjs/Rx';
-import {Visitante, Visita, Empleado} from "./model";
+import {Visitante, Visita, Empleado, TipoEmpleado} from "./model";
 import {isUndefined} from "ionic-angular/util/util";
 
 @Injectable()
@@ -13,10 +13,25 @@ export class DataService {
 
   private visitantesDb: Visitante[];
   private visitasAdentroDb: Visita[];
+  private empleadosDB: Empleado[];
   private headers: Headers;
 
   //private string: rest = 'http://10.0.2.131:3000';
-  private rest: string = 'http://10.0.0.27:3003/';
+//  private rest: string = 'http://10.0.0.27:3003';
+
+  private host_: String = 'http://10.0.2.131:3000'; // local
+  //private host: String = 'http://10.0.0.27:3003'; // server
+
+  public tipos:TipoEmpleado[] = [
+    new TipoEmpleado(0, 'Visitante'),
+    new TipoEmpleado(1, 'Estudiante'),
+    new TipoEmpleado(2, 'Proveedor'),
+    new TipoEmpleado(3, 'Contratista'),
+    new TipoEmpleado(4, 'Sub-contratista'),
+    new TipoEmpleado(5, 'Ex-empleado'),
+    new TipoEmpleado(6, 'Familiar'),
+    new TipoEmpleado(7, 'Otro')
+  ];
 
   constructor(private _http: Http) {
 
@@ -28,7 +43,7 @@ export class DataService {
   }
 
   public verificarConeccion() : Observable<number> {
-    return this._http.get(this.rest +  "/visitantes/count", {headers:this.headers})
+    return this._http.get(this.host_ +  "/visitantes/count", {headers:this.headers})
       .map((response: Response) => {
         let res = Number(response.status);
         return  res;
@@ -37,7 +52,7 @@ export class DataService {
   }
 
   public postVisitante = (visita: Visitante): Observable<Visitante> => {
-    var link = this.rest +  '/visitantes/';
+    var link = this.host_ +  '/visitantes/';
     //let toAdd = JSON.stringify(visitante, this.replacer);
     let toAdd = JSON.stringify(visita);
     return this._http.post(link, toAdd, { headers: this.headers })
@@ -46,7 +61,7 @@ export class DataService {
   }
 
   public putVisitante = (visita: Visitante): Observable<Response> => {
-    var link = this.rest +  '/visitantes/' + visita.id;
+    var link = this.host_ +  '/visitantes/' + visita.id;
     var visJson = JSON.stringify(visita, this.replacer);
     return this._http.put(link, visJson, {headers: this.headers});
   }
@@ -59,7 +74,7 @@ export class DataService {
   }
 
   public getVisitantes = (): Observable<Visitante[]> => {
-    return this._http.get(this.rest +  '/visitantes' ,  { headers: this.headers })
+    return this._http.get(this.host_ +  '/visitantes' ,  { headers: this.headers })
       .map((response: Response) => {
         this.visitantesDb = <Visitante[]>response.json();
         return  this.visitantesDb;
@@ -68,7 +83,7 @@ export class DataService {
   }
 
   public getVisitanteLast = (visitante_id: number): Observable<Visitante> => {
-    return this._http.get(this.rest +  '/visitantes/last/' + visitante_id ,  { headers: this.headers })
+    return this._http.get(this.host_ +  '/visitantes/last/' + visitante_id ,  { headers: this.headers })
       .map((response: Response) => {
         return  <Visitante>response.json();
       });
@@ -89,7 +104,7 @@ export class DataService {
   }
 
   public getLastVisita = (visitante_id: number): Observable<Visita> => {
-    return this._http.get(this.rest +  '/visitas/last/' + visitante_id ,  { headers: this.headers })
+    return this._http.get(this.host_ +  '/visitas/last/' + visitante_id ,  { headers: this.headers })
       .map((response: Response) => {
         return  <Visita>response.json();
       });
@@ -97,15 +112,16 @@ export class DataService {
 
   //private empleados: Observable<Empleado[]>;
   public getEmpleados = (): Observable<Empleado[]> => {
-      return this._http.get(this.rest +  '/empleados', {headers: this.headers})
+      return this._http.get(this.host_ +  '/empleados', {headers: this.headers})
         .map((response: Response) => {
-          return <Empleado[]>response.json();
-        });
-      //.catch(this.handleError);
+          this.empleadosDB =  <Empleado[]>response.json();
+          return this.empleadosDB; //<Empleado[]>response.json();
+        })
+      .catch(this.handleError);
   }
 
   public postVisita = (visita: Visita): Observable<Visita> => {
-    var link = this.rest +  '/visitas/';
+    var link = this.host_ +  '/visitas/';
     visita.empleado_id = visita.empleado.id;
     let toAdd = JSON.stringify(visita);
     return this._http.post(link, toAdd, { headers: this.headers })
@@ -114,7 +130,7 @@ export class DataService {
   }
 
   public putVisita = (visita: Visita): Observable<Visita> => {
-    var link = this.rest +  '/visitas/' + visita.id;
+    var link = this.host_ +  '/visitas/' + visita.id;
     visita.empleado_id = visita.empleado.id;
     let visJson = JSON.stringify(visita, this.replacer);
     return this._http.put(link, visJson, {headers: this.headers})
@@ -122,24 +138,34 @@ export class DataService {
   }
 
   public getVisitasActuales = (): Observable<Visita[]> => {
-    return this._http.get(this.rest +  '/visitas_adentro' ,  { headers: this.headers })
+    return this._http.get(this.host_ +  '/visitas_adentro' ,  { headers: this.headers })
       .map((response: Response) => {
         this.visitasAdentroDb = <Visita[]>response.json();
         return  this.visitasAdentroDb;
       });
     //.catch(this.handleError);
   }
-  /*
+
   filterVisitantesAdentro(searchTerm){
-    return this.visitantesAdentroDb.filter((item) => {
-      let nombre = item.nombre + ' ' + item.apellido;
-      return nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    return this.visitasAdentroDb.filter((item) => {
+      let term = item.gafete + ' ' + item.visitante.nombre + ' ' + item.visitante.apellido;
+      return term.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
   }
-*/
+
+  filterEmpleados(searchTerm){
+    return this.empleadosDB.filter((item) => {
+      return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
 
   private handleError (error: Response | any) {
     return Observable.throw('errMsg');
   }
+
+  public host() {
+    return this.host_;
+  }
+
 }
 

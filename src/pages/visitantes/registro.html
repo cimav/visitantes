@@ -31,12 +31,20 @@
         <p>{{visitante.empresa}}</p>
       </ion-item>
 
+      <!--
       <ion-item>
         <ion-label stacked>Empleado</ion-label>
         <ion-select [(ngModel)]="visitante.visita.empleado" formControlName="empleado" placeholder="Empleado a quien visita">
-          <ion-option *ngIf="visitante.visita.empleado" [value]="visitante.visita.empleado">{{visitante.visita.empleado.nombre}}</ion-option>   <!-- BUG si no lo pongo, no funciona -->
+          <ion-option *ngIf="visitante.visita.empleado" [value]="visitante.visita.empleado">{{visitante.visita.empleado.nombre}}</ion-option>
           <ion-option *ngFor="let e of empleados" [value]="e">{{e.nombre}}</ion-option>
         </ion-select>
+      </ion-item>
+      <p *ngIf="!visitaForm.controls.empleado.valid  && visitaForm.controls.empleado.dirty" class="p-invalid" >Requiere capturar nombre del empleado a visitar</p>
+      -->
+
+      <ion-item (tap)="goEmpleados(visitante.visita)">
+        <ion-label stacked>Empleado</ion-label>
+        <ion-input  *ngIf="visitante.visita.empleado" readonly="true" [(ngModel)]="visitante.visita.empleado" [value]="visitante.visita.empleado.nombre" formControlName="empleado" placeholder="Empleado a quien visita" ></ion-input>
       </ion-item>
       <p *ngIf="!visitaForm.controls.empleado.valid  && visitaForm.controls.empleado.dirty" class="p-invalid" >Requiere capturar nombre del empleado a visitar</p>
 
@@ -45,6 +53,11 @@
         <ion-textarea [(ngModel)]="visitante.visita.nota" formControlName="motivo" placeholder="Motivo de la visita, nota o comentario" ></ion-textarea>
       </ion-item>
       <p *ngIf="!visitaForm.controls.motivo.valid  && visitaForm.controls.motivo.dirty" class="p-invalid" >Requiere capturar motivo de la visita</p>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Gefete</ion-label>
+        <ion-input type="number" [(ngModel)]="visitante.visita.gafete" formControlName="gafete" placeholder="Número de gafete asignado" ></ion-input>
+      </ion-item>
 
       <ion-item no-lines style="height: 70px; z-index: -10;">
       </ion-item>

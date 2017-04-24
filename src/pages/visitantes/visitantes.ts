@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { ModalController, NavController} from 'ionic-angular';
 import {VisitantePage} from "../visitante/visitante";
-import {Visitante, Visita} from "../../app/model";
+import {Visitante, Visita, TipoEmpleado} from "../../app/model";
 import {DataService} from "../../app/data.service";
 import {VisitaPage} from "../visitas/visita";
 import {isUndefined} from "ionic-angular/util/util";
@@ -166,7 +166,7 @@ export class VisitantesPage {
     if (isUndefined( vis.random_num)) {
       vis.random_num = Math.random();
     }
-    return "http://10.0.0.27:3003/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
+    return this.dataService.host() + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
   }
 
 }

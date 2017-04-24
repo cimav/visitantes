@@ -14,6 +14,7 @@ import {VisitaPage} from "../pages/visitas/visita";
 import {Camera} from "ionic-native";
 import {SalidasPage} from "../pages/salidas/salidas";
 import {Registro} from "../pages/visitantes/registro";
+import {EmpleadosPage} from "../pages/empleados/empleados";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {Registro} from "../pages/visitantes/registro";
     AboutPage,
     ContactPage,
     HomePage,
-    VisitantesPage, VisitantePage, Camara, VisitasPage, VisitaPage, SalidasPage, Registro,
+    VisitantesPage, VisitantePage, Camara, VisitasPage, VisitaPage, SalidasPage, Registro, EmpleadosPage,
     TabsPage
   ],
   imports: [
@@ -33,7 +34,7 @@ import {Registro} from "../pages/visitantes/registro";
     AboutPage,
     ContactPage,
     HomePage,
-    VisitantesPage, VisitantePage, Camara, VisitasPage, VisitaPage, SalidasPage, Registro,
+    VisitantesPage, VisitantePage, Camara, VisitasPage, VisitaPage, SalidasPage, Registro, EmpleadosPage,
     TabsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, DataService, Camera]

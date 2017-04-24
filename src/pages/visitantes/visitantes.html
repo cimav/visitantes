@@ -36,6 +36,8 @@
           <div class="dato1">{{visitante.nombre}} {{visitante.apellido}}</div>
           <div class="etiqueta">Empresa</div>
           <div class="dato2">{{visitante.empresa}}</div>
+          <div class="etiqueta">Tipo</div>
+          <div class="dato2" *ngIf="dataService.tipos[visitante.tipo]">{{dataService.tipos[visitante.tipo].text}} </div>
         </div>
         <!--        <ion-icon mode="ios" name="arrow-forward" style="position: absolute; top:10px; right:10px; font-size: 24px; color: #626262;" role="img"></ion-icon> -->
         <!--<h5 style="position: absolute; bottom: 16px; left:16px; font-size: 14px; color: #626262;">{{visitante.id}}</h5>-->

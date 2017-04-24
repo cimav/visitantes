@@ -3,11 +3,12 @@
  */
 
 import {Component} from "@angular/core";
-import {NavParams, ViewController, LoadingController, ToastController} from "ionic-angular";
+import {NavParams, ViewController, LoadingController, ToastController, NavController} from "ionic-angular";
 import {DataService} from "../../app/data.service";
 import {isUndefined} from "ionic-angular/util/util";
 import {Visitante, Visita, Empleado} from "../../app/model";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
+import {EmpleadosPage} from "../empleados/empleados";
 
 @Component({
   selector: 'modal-registro',
@@ -21,12 +22,13 @@ export class Registro {
   private loading: any;
 
   constructor(navParams: NavParams,  private dataService: DataService, public viewCtrl: ViewController, private formBuilder: FormBuilder,
-              public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
+              public toastCtrl: ToastController, public loadingCtrl: LoadingController, public navCtrl: NavController) {
 
     this.visitante = navParams.get('visitante');
 
     this.visitaForm = this.formBuilder.group({
       motivo: ['', Validators.required],
+      gafete: [''],
       empleado: ['', Validators.required]
     });
 
@@ -108,6 +110,20 @@ export class Registro {
 
   }
 
+  goEmpleados(visita: Visita) {
+
+    let empleado:Empleado = null;
+
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(EmpleadosPage, {empleado: empleado, resolve:resolve, reject:reject});
+    }).then((empSel: Empleado) => {
+      visita.empleado_id = empSel.id;
+      visita.empleado = empSel;
+    }).catch(()=>{
+
+    });
+  }
+
   goDismiss() {
     this.viewCtrl.dismiss(null);
   }
@@ -116,7 +132,7 @@ export class Registro {
     if (isUndefined( vis.random_num)) {
       vis.random_num = Math.random();
     }
-    return "http://10.0.0.27:3003/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
+    return this.dataService.host() + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
   }
 
   presentLoadingDefault(start: boolean) {

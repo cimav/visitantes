@@ -23,8 +23,8 @@
     <ion-list>
       <ion-list-header>
         <ion-badge color="primary">Datos visitante</ion-badge>
-        <ion-badge color="primary" *ngIf="!visitante.id">Nuevo</ion-badge>
-        <ion-badge color="primary" *ngIf="visitante.id && visitanteForm.dirty">Edición</ion-badge>
+        <ion-badge color="danger" *ngIf="!visitante.id">Nuevo</ion-badge>
+        <ion-badge color="danger" *ngIf="visitante.id">Edición</ion-badge> <!--  && visitanteForm.dirty -->
       </ion-list-header>
 
       <!--
@@ -61,6 +61,22 @@
       <ion-item>
         <ion-label color="primary" floating>Nota</ion-label>
         <ion-textarea type="text" [(ngModel)]="visitante.nota" formControlName="nota" placeholder="Nota u observación"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label  color="primary" floating>Tipo</ion-label>
+        <ion-select [(ngModel)]="visitante.tipo" formControlName="tipo" placeholder="Tipo de visitante">
+
+          <ion-option value=0>{{dataService.tipos[0].text}}</ion-option>
+          <ion-option value=1>Estudiante</ion-option>
+          <ion-option value=2>Proveedor</ion-option>
+          <ion-option value=3>Contratista</ion-option>
+          <ion-option value=4>Suncontrato</ion-option>
+          <ion-option value=5>Ex-empleado</ion-option>
+          <ion-option value=6>Familiar</ion-option>
+          <ion-option value=7>Otro</ion-option>
+
+        </ion-select>
       </ion-item>
 
       <ion-item style="height: 70px;" >
