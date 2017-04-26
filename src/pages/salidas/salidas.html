@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Salidas
+      Salidas <ion-badge *ngIf="visitas" color="dark">{{visitas.length}}</ion-badge>
     </ion-title>
   </ion-navbar>
   <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>

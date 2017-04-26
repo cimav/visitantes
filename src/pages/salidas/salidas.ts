@@ -40,7 +40,7 @@ export class SalidasPage {
 
       this.presentLoadingDefault(true);
 
-      visita.salida = new Date();
+      visita.salida = new Date(); // tempo; la oficial es la del servidor
 
       this.dataService.putVisita(visita).subscribe(
         (visitaActualizada: Visita) => {
@@ -93,7 +93,6 @@ export class SalidasPage {
   }
 
   setFilteredItems() {
-    console.log(this.visitas);
     this.visitas = this.dataService.filterVisitantesAdentro(this.searchTerm);
   }
 

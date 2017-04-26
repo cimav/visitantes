@@ -16,11 +16,8 @@ export class DataService {
   private empleadosDB: Empleado[];
   private headers: Headers;
 
-  //private string: rest = 'http://10.0.2.131:3000';
-//  private rest: string = 'http://10.0.0.27:3003';
-
-  private host_: String = 'http://10.0.2.131:3000'; // local
-  //private host: String = 'http://10.0.0.27:3003'; // server
+  //private host_: String = 'http://10.0.2.131:3000'; // local
+  private host_: String = 'http://10.0.0.27:3003'; // server
 
   public tipos:TipoEmpleado[] = [
     new TipoEmpleado(0, 'Visitante'),

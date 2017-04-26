@@ -157,7 +157,6 @@ export class VisitantesPage {
   }
 
   setFilteredItems() {
-    console.log(this.visitantes);
     this.visitantes = this.dataService.filterItems(this.searchTerm);
 
   }
