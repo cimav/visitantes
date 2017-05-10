@@ -20,7 +20,7 @@ export class VisitantePage implements AfterViewInit {
 
   statusCamera: number = 0;
 
-  @ViewChild('canvas') canvas: ElementRef;
+  @ViewChild('canvasEle') canvasEle: ElementRef;
 
   private ctx: CanvasRenderingContext2D;
 
@@ -209,19 +209,26 @@ export class VisitantePage implements AfterViewInit {
     if (this.isDesktop) {
       let profileModal = this.modalCtrl.create(Camara, {}, {showBackdrop: true, enableBackdropDismiss: false}); //, { userId: 8675309 }, {showBackdrop: false}
       profileModal.onDidDismiss(data => {
-        let result: CameraData = data;
-        this.statusCamera = result.status;
+        let cameraData: CameraData = data;
+        this.statusCamera = cameraData.status;
         if (this.statusCamera == 2) {
 
-          this.visitanteForm.get('empresa').markAsDirty(true);
+          let base64Image: string = /*"data:image/png;base64," + */ cameraData.base64;
 
-          this.visitante.avatar = result.base64;
+          this.visitanteForm.get('empresa').markAsDirty(true);
+          this.visitanteForm.markAsDirty();
+
+          this.visitante.avatar = base64Image;
           this.visitante.random_num = Math.random();
 
-          this.ctx = this.canvas.nativeElement.getContext('2d');
+          let canvas = this.canvasEle.nativeElement;
+          this.ctx = canvas.getContext('2d');
           var image = new Image();
-          image.src = this.visitante.avatar;
-          this.ctx.drawImage(image, 0, 0, 300, 300);
+          image.src = base64Image;
+
+          image.onload = () => {
+            this.ctx.drawImage(image, 0, 0, 300, 300);
+          }
 
         }
       });
@@ -244,8 +251,8 @@ export class VisitantePage implements AfterViewInit {
         this.visitante.avatar = base64Image;
         this.visitante.random_num = Math.random();
 
-        let canvas = this.canvas.nativeElement;
-        this.ctx = this.canvas.nativeElement.getContext('2d');
+        let canvas = this.canvasEle.nativeElement;
+        this.ctx = canvas.getContext('2d');
         var image = new Image();
         image.src = this.visitante.avatar;
 
@@ -262,7 +269,9 @@ export class VisitantePage implements AfterViewInit {
         //image.width = image.width * wRatio;
         //image.height = image.height * hRatio;
 
-        this.ctx.drawImage(image, 0, 0,image.width, image.height,0,0,canvas.width*ratio, canvas.height*ratio);
+        image.onload = () => {
+          this.ctx.drawImage(image, 0, 0,image.width, image.height,0,0,canvas.width*ratio, canvas.height*ratio);
+        }
 
         /*
          var wRatio = canvas.width / imageObj.width;

@@ -28,14 +28,14 @@
           </ion-thumbnail>
 
           <div>
-            <div class="etiqueta">Nombre</div>
-            <div class="dato1">{{visita.visitante.nombre}} {{visita.visitante.apellido}}</div>
-            <div class="etiqueta">Empresa</div>
-            <div class="dato2">{{visita.visitante.empresa}}</div>
-            <div class="etiqueta">Visita a</div>
-            <div class="dato2">{{visita.empleado.nombre}}</div>
-            <div class="etiqueta">Entrada</div>
-            <div class="dato2">{{visita.entrada | date: 'medium'}}</div>
+            <p>Nombre</p>
+            <strong style="margin-left: 8px;">{{visita.visitante.nombre}} {{visita.visitante.apellido}}</strong>
+            <p class="etiqueta">Empresa</p>
+            <var style="margin-left: 8px;">{{visita.visitante.empresa}}</var>
+            <p class="etiqueta">Visita a</p>
+            <var style="margin-left: 8px;">{{visita.empleado.nombre}}</var>
+            <p class="etiqueta">Entrada</p>
+            <var style="margin-left: 8px;">{{visita.entrada | date: 'medium'}}</var>
           </div>
           <!--<h5 style="position: absolute; top: 16px; left:16px; font-size: 14px; color: #626262;">{{visita.id}}</h5>-->
 
