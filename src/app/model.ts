@@ -27,6 +27,7 @@ export class Visita {
   salida: Date;
   nota: string;
   gafete: string;
+  sede: number;
   constructor(visitante_id: number) {
     this.visitante_id = visitante_id;
   }

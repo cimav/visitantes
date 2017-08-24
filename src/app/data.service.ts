@@ -16,8 +16,8 @@ export class DataService {
   private empleadosDB: Empleado[];
   private headers: Headers;
 
-  //private host_: String = 'http://10.0.2.131:3000'; // local
-  private host_: String = 'http://10.0.0.27:3003'; // server
+  private host_: String = 'http://10.0.2.131:3000'; // local
+  //private host_: String = 'http://10.0.0.27:3003'; // server
 
   public tipos:TipoEmpleado[] = [
     new TipoEmpleado(0, 'Visitante'),
@@ -30,13 +30,22 @@ export class DataService {
     new TipoEmpleado(7, 'Otro')
   ];
 
+  private sede: number;
+
   constructor(private _http: Http) {
+
+      this.sede = Number(window.localStorage.getItem('id_sede_registro'));
+      if (!this.sede || this.sede > 3) {
+          window.localStorage.setItem('id_sede_registro', '1');
+          this.sede = 1;
+      }
 
     this.headers = new Headers();
 //    this.headers.append('Authorization', 'QURNSU5fUk9MRTphZG1pbg'); // 'Q0hJSFVBSFVBLk5PUlRFOmFkbWlu'); //QURNSU5fUk9MRTphZG1pbg
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
     this.headers.append('Access-Control-Allow-Origin', '*');
+
   }
 
   public verificarConeccion() : Observable<number> {
@@ -48,18 +57,18 @@ export class DataService {
      .catch(this.handleError);
   }
 
-  public postVisitante = (visita: Visitante): Observable<Visitante> => {
+  public postVisitante = (visitante: Visitante): Observable<Visitante> => {
     var link = this.host_ +  '/visitantes/';
     //let toAdd = JSON.stringify(visitante, this.replacer);
-    let toAdd = JSON.stringify(visita);
+    let toAdd = JSON.stringify(visitante);
     return this._http.post(link, toAdd, { headers: this.headers })
       .map((response: Response) => <Visitante>response.json());
     //.catch(this.handleError);
   }
 
-  public putVisitante = (visita: Visitante): Observable<Response> => {
-    var link = this.host_ +  '/visitantes/' + visita.id;
-    var visJson = JSON.stringify(visita, this.replacer);
+  public putVisitante = (visitante: Visitante): Observable<Response> => {
+    var link = this.host_ +  '/visitantes/' + visitante.id;
+    var visJson = JSON.stringify(visitante, this.replacer);
     return this._http.put(link, visJson, {headers: this.headers});
   }
 
@@ -120,6 +129,7 @@ export class DataService {
   public postVisita = (visita: Visita): Observable<Visita> => {
     var link = this.host_ +  '/visitas/';
     visita.empleado_id = visita.empleado.id;
+    visita.sede = this.sede;
     let toAdd = JSON.stringify(visita);
     return this._http.post(link, toAdd, { headers: this.headers })
       .map((response: Response) => <Visita>response.json());
@@ -135,7 +145,7 @@ export class DataService {
   }
 
   public getVisitasActuales = (): Observable<Visita[]> => {
-    return this._http.get(this.host_ +  '/visitas_adentro' ,  { headers: this.headers })
+    return this._http.get(this.host_ +  '/visitas_adentro/' + this.sede ,  { headers: this.headers })
       .map((response: Response) => {
         this.visitasAdentroDb = <Visita[]>response.json();
         return  this.visitasAdentroDb;
