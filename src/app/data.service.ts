@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import {Observable} from 'rxjs/Rx';
-import {Visitante, Visita, Empleado, TipoEmpleado} from "./model";
+import {Visitante, Visita, Persona, TipoVisita} from "./model";
 import {isUndefined} from "ionic-angular/util/util";
 
 @Injectable()
@@ -13,21 +13,22 @@ export class DataService {
 
   private visitantesDb: Visitante[];
   private visitasAdentroDb: Visita[];
-  private empleadosDB: Empleado[];
+//  private empleadosDB: Empleado[];
+  private personasDB: Persona[];
   private headers: Headers;
 
-  //private host_: String = 'http://10.0.2.131:3000'; // local
-  private host_: String = 'http://10.0.0.27:3003'; // server
+  private host_: String = 'http://10.0.2.131:3000'; // local
+  //private host_: String = 'http://10.0.0.27:3003'; // server
 
-  public tipos:TipoEmpleado[] = [
-    new TipoEmpleado(0, 'Visitante'),
-    new TipoEmpleado(1, 'Estudiante'),
-    new TipoEmpleado(2, 'Proveedor'),
-    new TipoEmpleado(3, 'Contratista'),
-    new TipoEmpleado(4, 'Sub-contratista'),
-    new TipoEmpleado(5, 'Ex-empleado'),
-    new TipoEmpleado(6, 'Familiar'),
-    new TipoEmpleado(7, 'Otro')
+  public tipos:TipoVisita[] = [
+    new TipoVisita(0, 'Visitante'),
+    new TipoVisita(1, 'Estudiante'),
+    new TipoVisita(2, 'Proveedor'),
+    new TipoVisita(3, 'Contratista'),
+    new TipoVisita(4, 'Sub-contratista'),
+    new TipoVisita(5, 'Ex-empleado'),
+    new TipoVisita(6, 'Familiar'),
+    new TipoVisita(7, 'Otro')
   ];
 
   private sede: number;
@@ -117,6 +118,7 @@ export class DataService {
   }
 
   //private empleados: Observable<Empleado[]>;
+  /*
   public getEmpleados = (): Observable<Empleado[]> => {
       return this._http.get(this.host_ +  '/empleados', {headers: this.headers})
         .map((response: Response) => {
@@ -125,10 +127,20 @@ export class DataService {
         })
       .catch(this.handleError);
   }
+  */
+
+  public getPersonas = (): Observable<Persona[]> => {
+    return this._http.get(this.host_ +  '/personas', {headers: this.headers})
+        .map((response: Response) => {
+          this.personasDB =  <Persona[]>response.json();
+          return this.personasDB;
+        })
+        .catch(this.handleError);
+  }
 
   public postVisita = (visita: Visita): Observable<Visita> => {
     var link = this.host_ +  '/visitas/';
-    visita.empleado_id = visita.empleado.id;
+    visita.persona_id = visita.persona.id;
     visita.sede = this.sede;
     let toAdd = JSON.stringify(visita);
     return this._http.post(link, toAdd, { headers: this.headers })
@@ -138,7 +150,7 @@ export class DataService {
 
   public putVisita = (visita: Visita): Observable<Visita> => {
     var link = this.host_ +  '/visitas/' + visita.id;
-    visita.empleado_id = visita.empleado.id;
+    visita.persona_id = visita.persona.id;
     let visJson = JSON.stringify(visita, this.replacer);
     return this._http.put(link, visJson, {headers: this.headers})
       .map((response: Response) => <Visita>response.json());
@@ -160,8 +172,8 @@ export class DataService {
     });
   }
 
-  filterEmpleados(searchTerm){
-    return this.empleadosDB.filter((item) => {
+  filterPersonas(searchTerm){
+    return this.personasDB.filter((item) => {
       return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
   }

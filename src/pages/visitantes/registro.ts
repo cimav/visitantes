@@ -6,9 +6,9 @@ import {Component} from "@angular/core";
 import {NavParams, ViewController, LoadingController, ToastController, NavController} from "ionic-angular";
 import {DataService} from "../../app/data.service";
 import {isUndefined} from "ionic-angular/util/util";
-import {Visitante, Visita, Empleado} from "../../app/model";
+import {Visitante, Visita,  Persona} from "../../app/model";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
-import {EmpleadosPage} from "../empleados/empleados";
+import {PersonasPage} from "../personas/personas";
 
 @Component({
   selector: 'modal-registro',
@@ -18,7 +18,7 @@ export class Registro {
 
   visitante: Visitante;
   visitaForm: FormGroup;
-  empleados: Empleado[];
+  personas: Persona[];
   private loading: any;
 
   constructor(navParams: NavParams,  private dataService: DataService, public viewCtrl: ViewController, private formBuilder: FormBuilder,
@@ -29,16 +29,16 @@ export class Registro {
     this.visitaForm = this.formBuilder.group({
       motivo: ['', Validators.required],
       gafete: [''],
-      empleado: ['', Validators.required]
+      persona: ['', Validators.required]
     });
 
-    this.dataService.getEmpleados().subscribe(
-      (response: Empleado[]) => {
-        this.empleados = response;
+    this.dataService.getPersonas().subscribe(
+      (response: Persona[]) => {
+        this.personas = response;
       },
       error => console.log(error),
       () => {
-        console.log("Get Empleados:" + (this.empleados).length);
+        console.log("Get Personas:" + (this.personas).length);
       }
     );
   }
@@ -53,9 +53,9 @@ export class Registro {
         //  creo visita volatil
         let visita:Visita = new Visita(this.visitante.id);
         if (this.visitante.visita) {
-          // le pre-cargo el ultimo empleado que visitó
-          visita.empleado = this.visitante.visita.empleado;
-          visita.empleado_id = this.visitante.visita.empleado_id;
+          // le pre-cargo el ultimo persona que visitó
+          visita.persona = this.visitante.visita.persona;
+          visita.persona_id = this.visitante.visita.persona_id;
         }
         this.visitante.visita = visita;
       },
@@ -110,15 +110,15 @@ export class Registro {
 
   }
 
-  goEmpleados(visita: Visita) {
+  goPersonas(visita: Visita) {
 
-    let empleado:Empleado = null;
+    let persona:Persona = null;
 
     new Promise((resolve, reject) => {
-      this.navCtrl.push(EmpleadosPage, {empleado: empleado, resolve:resolve, reject:reject});
-    }).then((empSel: Empleado) => {
-      visita.empleado_id = empSel.id;
-      visita.empleado = empSel;
+      this.navCtrl.push(PersonasPage, {persona: persona, resolve:resolve, reject:reject});
+    }).then((perSelec: Persona) => {
+      visita.persona_id = perSelec.id;
+      visita.persona = perSelec;
     }).catch(()=>{
 
     });

@@ -2,7 +2,7 @@
  * Created by calderon on 3/9/17.
  */
 import {Component} from "@angular/core";
-import {Visitante, Visita, Empleado} from "../../app/model";
+import {Visitante, Visita, Persona} from "../../app/model";
 import {NavController, NavParams, ToastController, LoadingController, DateTime} from "ionic-angular";
 import {DataService} from "../../app/data.service";
 import {VisitantePage} from "../visitante/visitante";
@@ -16,22 +16,9 @@ import {FormGroup, Validator, Validators, FormBuilder} from "@angular/forms";
 })
 export class VisitaPage {
 
-  //private rest: string = 'http://10.0.0.27:3003/';
-
   visitante: Visitante;
-  empleados: Empleado[];
-  _selectEmpleado : any;
+  personas: Persona[];
 
-  /*
-  public set selectEmpleado(selectEmpleado: Empleado) {
-    this.visitante.visita.empleado = selectEmpleado;
-    this._selectEmpleado = selectEmpleado;
-  }
-  public get selectEmpleado() {
-    this._selectEmpleado =  this.visitante.visita.empleado;
-    return this._selectEmpleado;
-  }
-  */
 
   visitaForm: FormGroup;
 
@@ -42,18 +29,18 @@ export class VisitaPage {
 
     this.visitaForm = this.formBuilder.group({
       motivo: ['', Validators.required],
-      empleado: ['', Validators.required]
+      persona: ['', Validators.required]
     });
 
     this.visitante = navParams.get('visitante');
 
-    this.dataService.getEmpleados().subscribe(
-      (response: Empleado[]) => {
-        this.empleados = response;
+    this.dataService.getPersonas().subscribe(
+      (response: Persona[]) => {
+        this.personas = response;
       },
       error => console.log(error),
       () => {
-        console.log("Get Empleados:" + (this.empleados).length);
+        console.log("Get Personas:" + (this.personas).length);
       }
     );
 
@@ -65,17 +52,12 @@ export class VisitaPage {
 
   public onSubmit(updated:any) {
 
-   // let empTmp: any = this.visitante.visita.empleado;
-
     if (isUndefined(this.visitante.visita.id)) {
 
       this.presentLoadingDefault(true);
 
       this.dataService.postVisita(this.visitante.visita).subscribe(
         (visitaNueva: Visita) => {
-
-          //this.visitante.visita = visitaNueva;
-          //this.visitante.visita.empleado = empTmp;
 
           this.goBack();
 
@@ -91,9 +73,6 @@ export class VisitaPage {
 
       this.dataService.putVisita(this.visitante.visita).subscribe(
         (visitaActualizada: Visita) => {
-
-          //this.visitante.visita = visitaActualizada;
-          //this.visitante.visita.empleado = empTmp;
 
           this.goBack();
 
@@ -113,8 +92,8 @@ export class VisitaPage {
     return src;
   }
 
-  getEmpleadoNombre() {
-    return isUndefined(this.visitante.visita.empleado) ? "Empleado" : this.visitante.visita.empleado.nombre;
+  getPersonaNombre() {
+    return isUndefined(this.visitante.visita.persona) ? "Persona" : this.visitante.visita.persona.nombre;
   }
 
   goEdit() {
@@ -158,8 +137,8 @@ export class VisitaPage {
 
   goEnterVisita() {
     let nueva:Visita = new Visita(this.visitante.id);
-    nueva.empleado = this.visitante.visita.empleado;
-    nueva.empleado_id = this.visitante.visita.empleado_id;
+    nueva.persona = this.visitante.visita.persona;
+    nueva.persona_id = this.visitante.visita.persona_id;
     this.visitante.visita = nueva;
   }
 

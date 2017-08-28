@@ -32,17 +32,27 @@ export class Visita {
     this.visitante_id = visitante_id;
   }
 
-  empleado: Empleado;
-  empleado_id: number;
+//  empleado: Empleado;
+  persona: Persona;
+  persona_id: number;
 
   visitante: Visitante;
   visitante_id: number;
 }
 
+/*
 export class Empleado {
   id: number;
   nombre: string
   constructor() {}
+}
+*/
+
+export class Persona {
+  id: number;
+  tipo: number;
+  sede: number;
+  nombre: string;
 }
 
 export class CameraData {
@@ -54,7 +64,8 @@ export class CameraData {
   }
 }
 
-export class TipoEmpleado {
+export class TipoVisita {
+//export class TipoEmpleado {
   id: number;
   text: string;
   constructor(id: number, text: string) {

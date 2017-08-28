@@ -1,0 +1,23 @@
+
+<ion-header>
+  <ion-navbar>
+
+    <ion-title>
+      Personas (Empleados, Alumnos y Subcontratados activos)
+    </ion-title>
+  </ion-navbar>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredPersonas()"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+      <ion-item (tap)="tabSelect(persona)" *ngFor="let persona of personas">
+        <h2>{{persona.nombre}}</h2>
+      </ion-item>
+
+  </ion-list>
+
+ <ion-content>
+

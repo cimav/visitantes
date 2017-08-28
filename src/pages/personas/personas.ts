@@ -1,18 +1,18 @@
 /**
  * Created by calderon on 4/24/17.
  */
-import {Empleado} from "../../app/model";
+import { Persona} from "../../app/model";
 import {Component} from "@angular/core";
 import {DataService} from "../../app/data.service";
 import {LoadingController, ViewController, NavParams, NavController} from "ionic-angular";
 
 @Component({
-  selector: 'page-empleados',
-  templateUrl: 'empleados.html'
+  selector: 'page-personas',
+  templateUrl: 'personas.html'
 })
-export class EmpleadosPage {
+export class PersonasPage {
 
-  public empleados: Empleado[];
+  public personas: Persona[];
   searchTerm: string = '';
   private loading: any;
 
@@ -20,14 +20,14 @@ export class EmpleadosPage {
 
     this.presentLoadingDefault(true);
 
-    this.dataService.getEmpleados().subscribe(
-      (response: Empleado[]) => {
-        this.empleados = response;
+    this.dataService.getPersonas().subscribe(
+      (response: Persona[]) => {
+        this.personas = response;
       },
       error => console.log(error),
       () => {
         this.presentLoadingDefault(false);
-        console.log("Get Empleados:" + (this.empleados).length);
+        console.log("Get Personas:" + (this.personas).length);
       }
     );
 
@@ -44,13 +44,13 @@ export class EmpleadosPage {
     }
   }
 
-  setFilteredEmpleados() {
-    this.empleados = this.dataService.filterEmpleados(this.searchTerm);
+  setFilteredPersonas() {
+    this.personas = this.dataService.filterPersonas(this.searchTerm);
   }
 
-  tabSelect(empleado: Empleado) {
-    //this.viewCtrl.dismiss(empleado);
-    this.navCtrl.pop().then(() => this.navParams.get('resolve')(empleado));
+  tabSelect(persona: Persona) {
+    //this.viewCtrl.dismiss(persona);
+    this.navCtrl.pop().then(() => this.navParams.get('resolve')(persona));
   }
   goDismiss() {
     //this.viewCtrl.dismiss(null);

@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 
 import { ModalController, NavController} from 'ionic-angular';
 import {VisitantePage} from "../visitante/visitante";
-import {Visitante, Visita, TipoEmpleado} from "../../app/model";
+import {Visitante } from "../../app/model";
 import {DataService} from "../../app/data.service";
-import {VisitaPage} from "../visitas/visita";
 import {isUndefined} from "ionic-angular/util/util";
 import {Registro} from "./registro";
 
