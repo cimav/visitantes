@@ -15,7 +15,7 @@
 
     <ion-list>
 
-        <ion-item (tap)="tabSelect(proveedor)" *ngFor="let proveedor of proveedores">
+        <ion-item *ngFor="let proveedor of proveedores">
             <h2>{{proveedor.nombre}}</h2>
         </ion-item>
 
