@@ -16,6 +16,7 @@ export class DataService {
 //  private empleadosDB: Empleado[];
   private personasDB: Persona[];
   private headers: Headers;
+  private proveedoresDB: Persona[];
 
   private host_: String = 'http://10.0.2.131:3000'; // local
   //private host_: String = 'http://10.0.0.27:3003'; // server
@@ -138,6 +139,15 @@ export class DataService {
         .catch(this.handleError);
   }
 
+  public getProveedores = (): Observable<Persona[]> => {
+    return this._http.get(this.host_ +  '/proveedores', {headers: this.headers})
+        .map((response: Response) => {
+          this.proveedoresDB =  <Persona[]>response.json();
+          return this.proveedoresDB;
+        })
+        .catch(this.handleError);
+  }
+
   public postVisita = (visita: Visita): Observable<Visita> => {
     var link = this.host_ +  '/visitas/';
     visita.persona_id = visita.persona.id;
@@ -177,6 +187,12 @@ export class DataService {
       return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
   }
+
+    filterProveedores(searchTerm){
+        return this.proveedoresDB.filter((item) => {
+            return item.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+        });
+    }
 
   private handleError (error: Response | any) {
     return Observable.throw('errMsg');
