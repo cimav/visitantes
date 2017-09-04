@@ -36,8 +36,15 @@ export class DataService {
 
   constructor(private _http: Http) {
 
+      /*
+      1 Chi
+      2 Juaréz
+      3 Mty
+      4 Dgo
+      */
+
       this.sede = Number(window.localStorage.getItem('id_sede_registro'));
-      if (!this.sede || this.sede > 3) {
+      if (!this.sede || this.sede > 4) {
           window.localStorage.setItem('id_sede_registro', '1');
           this.sede = 1;
       }
@@ -140,7 +147,7 @@ export class DataService {
   }
 
   public getProveedores = (): Observable<Persona[]> => {
-    return this._http.get(this.host_ +  '/proveedores', {headers: this.headers})
+    return this._http.get(this.host_ +  '/proveedores/' + this.sede, {headers: this.headers})
         .map((response: Response) => {
           this.proveedoresDB =  <Persona[]>response.json();
           return this.proveedoresDB;
