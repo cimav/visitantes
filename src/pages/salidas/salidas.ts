@@ -4,6 +4,7 @@ import {Visitante, Visita} from "../../app/model";
 import {DataService} from "../../app/data.service";
 import {isUndefined} from "ionic-angular/util/util";
 import {LoadingController, ToastController} from "ionic-angular";
+import {ENV} from "../../config/environment-dev";
 
 @Component({
   selector: 'page-salidas',
@@ -69,7 +70,7 @@ export class SalidasPage {
     if (isUndefined(vis.random_num)) {
       vis.random_num = Math.random();
     }
-    return  this.dataService.host() + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
+    return  ENV.API_URL + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
   }
 
   presentLoadingDefault(start: boolean) {

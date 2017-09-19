@@ -9,6 +9,7 @@ import {isUndefined} from "ionic-angular/util/util";
 import {Visitante, Visita,  Persona} from "../../app/model";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {PersonasPage} from "../personas/personas";
+import {ENV} from "../../config/environment-dev";
 
 @Component({
   selector: 'modal-registro',
@@ -132,7 +133,7 @@ export class Registro {
     if (isUndefined( vis.random_num)) {
       vis.random_num = Math.random();
     }
-    return this.dataService.host() + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
+    return ENV.API_URL + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
   }
 
   presentLoadingDefault(start: boolean) {

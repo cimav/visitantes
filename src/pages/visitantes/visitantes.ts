@@ -6,6 +6,7 @@ import {Visitante } from "../../app/model";
 import {DataService} from "../../app/data.service";
 import {isUndefined} from "ionic-angular/util/util";
 import {Registro} from "./registro";
+import {ENV} from "../../config/environment-dev";
 
 @Component({
   selector: 'page-visitantes',
@@ -24,7 +25,7 @@ export class VisitantesPage {
 
     this.navCtrl = navCtrl;
 
-    this.dataService.verificarConeccion().subscribe(
+    this.dataService.verificarConexion().subscribe(
       (response: number) => {
         this.visitantesCount = response;
         if (this.visitantesCount > 0) {
@@ -164,7 +165,7 @@ export class VisitantesPage {
     if (isUndefined( vis.random_num)) {
       vis.random_num = Math.random();
     }
-    return this.dataService.host() + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
+    return ENV.API_URL + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
   }
 
 }

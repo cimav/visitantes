@@ -9,6 +9,7 @@ import {VisitantePage} from "../visitante/visitante";
 import {isUndefined} from "ionic-angular/util/util";
 import {Response} from "@angular/http";
 import {FormGroup, Validator, Validators, FormBuilder} from "@angular/forms";
+import {ENV} from "../../config/environment-dev";
 
 @Component({
   selector: 'page-visita',
@@ -88,7 +89,7 @@ export class VisitaPage {
   }
 
   getAvatarUrlRest() {
-    let src =  this.dataService.host() + "/visitantes/avatar/" + this.visitante.id + "?c=" + this.visitante.random_num;
+    let src =  ENV.API_URL + "/visitantes/avatar/" + this.visitante.id + "?c=" + this.visitante.random_num;
     return src;
   }
 
