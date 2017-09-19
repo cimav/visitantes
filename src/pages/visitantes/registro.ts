@@ -42,6 +42,8 @@ export class Registro {
         console.log("Get Personas:" + (this.personas).length);
       }
     );
+
+    console.log('DB >>>>>> ' + ENV.API_URL);
   }
 
   ionViewDidLoad() {
