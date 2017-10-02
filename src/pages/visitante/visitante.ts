@@ -6,8 +6,6 @@ import {DataService} from "../../app/data.service";
 import {Camara} from "./camara";
 import {Camera} from "ionic-native";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {isUndefined} from "ionic-angular/util/util";
-import {VisitaPage} from "../visitas/visita";
 import {Registro} from "../visitantes/registro";
 import {ENV} from "../../config/environment-dev";
 
@@ -236,7 +234,7 @@ export class VisitantePage implements AfterViewInit {
       profileModal.present();
     } else {
 
-      Camera.getPicture({
+        Camera.getPicture({
         destinationType: Camera.DestinationType.DATA_URL,
         encodingType: Camera.EncodingType.PNG,
         targetWidth: 300,

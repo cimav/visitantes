@@ -1,6 +1,8 @@
 {
-  "name": "visi01",
+  "name": "visi50",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }

@@ -3,6 +3,6 @@
  */
 
 export const ENV = {
-    PRODUCTION : true,
+    PRODUCTION : false,
     API_URL    : 'http://10.0.0.27:3003'
 };

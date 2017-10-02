@@ -1,0 +1,11 @@
+
+
+     ionic cordova build android
+sudo ionic cordova build android --release
+
+/Users/calderon/gdrive/smilodon/projects/ionic/visitantes/platforms/android/build/outputs/apk/android-debug.apk
+
+### npm install --save --save-exact ionic@3.10.3
+
+
+

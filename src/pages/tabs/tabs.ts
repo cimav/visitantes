@@ -16,6 +16,7 @@ export class TabsPage {
   tabVisitantesRoot: any = VisitantesPage;
   tabSalidasRoot: any = SalidasPage;
   tabProveedoresRoot: any = ProveedoresPage;
+  tabAboutRoot: any = AboutPage;
 
   constructor() {
 

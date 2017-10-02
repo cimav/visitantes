@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'page-about',
@@ -8,14 +6,8 @@ import { NavController } from 'ionic-angular';
 })
 export class AboutPage {
 
-  cont: number = 0;
+  versionNumber: any = "1.53";
 
-  constructor(public navCtrl: NavController) {
-
+  constructor() {
   }
-
-  tapEvent() {
-    this.cont++;
-  }
-
 }

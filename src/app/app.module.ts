@@ -14,11 +14,12 @@ import {SalidasPage} from "../pages/salidas/salidas";
 import {Registro} from "../pages/visitantes/registro";
 import {PersonasPage} from "../pages/personas/personas";
 import {ProveedoresPage} from "../pages/proveedores/proveedores";
+import {AboutPage} from "../pages/about/about";
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    HomePage, AboutPage,
     VisitantesPage, VisitantePage, Camara, VisitasPage, VisitaPage, SalidasPage, Registro, PersonasPage,ProveedoresPage,
     TabsPage
   ],
@@ -30,7 +31,7 @@ import {ProveedoresPage} from "../pages/proveedores/proveedores";
     MyApp,
     HomePage,
     VisitantesPage, VisitantePage, Camara, VisitasPage, VisitaPage, SalidasPage, Registro, PersonasPage, ProveedoresPage,
-    TabsPage
+    TabsPage, AboutPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, DataService, Camera]
 })
