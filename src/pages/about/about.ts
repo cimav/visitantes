@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
 })
 export class AboutPage {
 
-  versionNumber: any = "1.53";
+  versionNumber: any = "1.21";
 
   constructor() {
   }
