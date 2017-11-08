@@ -56,6 +56,8 @@ export class DataService {
     this.headers.append('Accept', 'application/json');
     this.headers.append('Access-Control-Allow-Origin', '*');
 
+    this.visitantesDb = [];
+
   }
 
   public verificarConexion() : Observable<number> {
@@ -91,10 +93,10 @@ export class DataService {
 
   public getVisitantes = (): Observable<Visitante[]> => {
     return this._http.get(ENV.API_URL +  '/visitantes' ,  { headers: this.headers })
-      .map((response: Response) => {
-        this.visitantesDb = <Visitante[]>response.json();
-        return  this.visitantesDb;
-      });
+        .map((response: Response) => {
+          this.visitantesDb = <Visitante[]>response.json();
+          return  this.visitantesDb;
+        });
     //.catch(this.handleError);
   }
 
@@ -112,11 +114,13 @@ export class DataService {
     if (searchTerm.toUpperCase() == 'XX') {
       searchTerm = '';
     }
+    if (!this.visitantesDb) {
+      this.visitantesDb = [];
+    }
     return this.visitantesDb.filter((item) => {
       let nombre = item.nombre + ' ' + item.apellido;
       return nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
-
   }
 
   public getLastVisita = (visitante_id: number): Observable<Visita> => {

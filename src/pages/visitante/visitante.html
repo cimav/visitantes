@@ -3,7 +3,7 @@
 <!--     -->
 
     <ion-buttons left>
-      <button ion-button (click)="goBackToVisitantes()">
+      <button ion-button (click)="goBackToVisitantes(true)">
         <ion-icon  name="arrow-round-back"
 
                    class="back-button-icon icon icon-md back-button-icon-md ion-md-arrow-back" role="img" ng-reflect-klass="back-button-icon" ng-reflect-ng-class="back-button-icon-md" aria-label="arrow back" ng-reflect-name="md-arrow-back"
@@ -58,10 +58,6 @@
         <ion-input type="text" [(ngModel)]="visitante.empresa" formControlName="empresa" placeholder="Empresa, escuela o lugar de procedencia"></ion-input>
       </ion-item>
       <p *ngIf="!visitanteForm.controls.empresa.valid  && visitanteForm.controls.empresa.dirty" class="p-invalid" >Debe capturar la Empresa o lugar de procedencia</p>
-      <ion-item>
-        <ion-label color="primary" floating>Nota</ion-label>
-        <ion-textarea type="text" [(ngModel)]="visitante.nota" formControlName="nota" placeholder="Nota u observación"></ion-textarea>
-      </ion-item>
 
       <ion-item>
         <ion-label  color="primary" floating>Tipo</ion-label>
@@ -77,6 +73,11 @@
           <ion-option value=7>Otro</ion-option>
 
         </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" floating>Nota</ion-label>
+        <ion-textarea type="text" [(ngModel)]="visitante.nota" formControlName="nota" placeholder="Nota u observación"></ion-textarea>
       </ion-item>
 
       <ion-item style="height: 70px;" >

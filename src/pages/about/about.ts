@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ENV} from "../../config/environment-dev";
 
 @Component({
   selector: 'page-about',
@@ -6,8 +7,19 @@ import {Component} from '@angular/core';
 })
 export class AboutPage {
 
-  versionNumber: any = "1.21";
+  versionNumber: any = "1.30";
+
+  tabCont: number = 0;
+
+  serverUrl: string = ENV.API_URL;
 
   constructor() {
+
   }
+
+  tapEvent() {
+    this.tabCont++;
+    console.log("tap>", this.tabCont);
+  }
+
 }

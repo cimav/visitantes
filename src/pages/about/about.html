@@ -7,10 +7,11 @@
 </ion-header>
 
 <ion-content padding>
-  <div >Versión: {{versionNumber}}</div>
+  <div (tap)="tapEvent($event)">Versión: {{versionNumber}}</div>
   <ion-img src="assets/images/logo-cimav-medio.png" style="background: white;
     width: 500px;
     height: 300px; position: absolute;
     left: 50%;
-    margin-left: -250px;"></ion-img>
+    margin-left: -250px;" (tap)="tapEvent($event)"></ion-img>
+  <h1 *ngIf="tabCont>6">{{serverUrl}}</h1>
 </ion-content>

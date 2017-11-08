@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ViewChild, ElementRef,} from '@angular/core';
+import {Component, ViewChild, ElementRef,} from '@angular/core';
 import {ModalController, NavParams, NavController, ToastController, Platform, LoadingController} from 'ionic-angular';
 import {Visitante, CameraData, Visita} from "../../app/model";
 import {Response} from "@angular/http";
@@ -13,7 +13,7 @@ import {ENV} from "../../config/environment-dev";
   selector: 'page-visitante',
   templateUrl: 'visitante.html'
 })
-export class VisitantePage implements AfterViewInit {
+export class VisitantePage {
 
   visitante: Visitante;
 
@@ -50,10 +50,7 @@ export class VisitantePage implements AfterViewInit {
     // If we navigated to this page, we will have an item available as a nav param
     this.visitante = navParams.get('visitante');
 
-  }
-
-  ngAfterViewInit() {
-
+    this.goBackToVisitantes(false);
 
   }
 
@@ -64,7 +61,7 @@ export class VisitantePage implements AfterViewInit {
     if (this.visitante.id) {
       this.dataService.putVisitante(this.visitante).subscribe(
         (response: Response) => {
-          this.goBackToVisitantes();
+          this.goBackToVisitantes(true);
 
         },
         error => console.log(error),
@@ -92,63 +89,19 @@ export class VisitantePage implements AfterViewInit {
 
   }
 
-  ionViewDidLoad() {
-  }
-
   goEntrada() {
 
     let profileModal = this.modalCtrl.create(Registro, {visitante:this.visitante}, {showBackdrop: true, enableBackdropDismiss: true});
     profileModal.onDidDismiss(dataVisitante => {
       //visitante = dataVisitante;
 
-      this.goBackToVisitantes();
+      this.goBackToVisitantes(true);
 
     });
     profileModal.present();
   }
 
-  /*
-  goToVisitas() {
-    //let duplicateVisita = <Visitante> JSON.parse(JSON.stringify(visitante));
-    new Promise((resolve, reject) => {
-
-      // Selecciono Visitante: la recargo y la envio a Visita
-      this.dataService.getVisitanteLast(this.visitante.id).subscribe(
-        (response: Visitante) => {
-          this.visitante = response;
-          this.visitante.random_num = Math.random();
-          if (isUndefined(this.visitante.visita)) {
-            // Nueva Visita
-            let visita: Visita = new Visita(this.visitante.id);
-            this.visitante.visita = visita;
-          }
-          this.navCtrl.push(VisitaPage, {visitante: this.visitante, resolve:resolve, reject:reject});
-        },
-        error => console.log(error),
-        () => {
-          console.log("Get Visitante:" + this.visitante.id );
-        }
-      );
-
-    }).then((visitanteData: Visitante) => {
-      // Succeful regreso de la vista Succseful
-//      visitante = visitanteData;
-//      visitante.random_num = Math.random();
-
-      this.goBackToVisitantes(); // Fixme Mejorar recarga
-
-
-    }).catch((visitanteData: Visitante)=>{
-      // Reject regreso de la Visita Rejected
-//      visitante = visitanteData;
-//      visitante.random_num = Math.random();
-
-      this.goBackToVisitantes(); // Fixme Mejorar recarga
-    });
-
-  }
-*/
-  goBackToVisitantes() {
+  goBackToVisitantes(regresar: boolean) {
 
     if (this.visitante.id) {
       this.presentLoadingDefault(true);
@@ -162,7 +115,9 @@ export class VisitantePage implements AfterViewInit {
           this.visitante.visita = visitaTmp;
           this.visitante.random_num = Math.random();
 
-          this.navCtrl.pop().then(() => this.navParams.get('resolve')(this.visitante));
+          if (regresar) {
+            this.navCtrl.pop().then(() => this.navParams.get('resolve')(this.visitante));
+          }
         },
         error => {
           console.log(error);
