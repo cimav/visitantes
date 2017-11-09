@@ -1,10 +1,17 @@
 
+##### Para Web
 
 sudo ionic build
+
+# el code queda en /wwww
+
+
+##### Para Android
 
      ionic cordova build android
 sudo ionic cordova build android --release
 
+# el code queda en
 /Users/calderon/gdrive/smilodon/projects/ionic/visitantes/platforms/android/build/outputs/apk/android-debug.apk
 
 ### npm install --save --save-exact ionic@3.10.3
