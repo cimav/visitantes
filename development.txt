@@ -14,6 +14,10 @@ sudo ionic cordova build android --release
 # el code queda en
 /Users/calderon/gdrive/smilodon/projects/ionic/visitantes/platforms/android/build/outputs/apk/android-debug.apk
 
+lo renombro. ej. visitor.apk
+
+y lo pongo en: http://recepcion.cimav.edu.mx/visitor.apk
+
 ### npm install --save --save-exact ionic@3.10.3
 
 

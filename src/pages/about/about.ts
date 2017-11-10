@@ -7,7 +7,7 @@ import {ENV} from "../../config/environment-dev";
 })
 export class AboutPage {
 
-  versionNumber: any = "4.40";
+  versionNumber: any = "4.44";
 
   tabCont: number = 0;
 

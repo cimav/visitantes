@@ -158,7 +158,6 @@ export class VisitantesPage {
 
   setFilteredItems() {
     this.visitantes = this.dataService.filterItems(this.searchTerm);
-
   }
 
   getAvatarUrl(vis: Visitante) {

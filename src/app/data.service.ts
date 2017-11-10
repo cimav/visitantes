@@ -108,11 +108,11 @@ export class DataService {
   }
 
   filterItems(searchTerm){
-    if (searchTerm.trim().length <= 0) {
-      return <Visitante[]>[];
-    }
+
     if (searchTerm.toUpperCase() == 'XX') {
       searchTerm = '';
+    } else if (searchTerm.trim().length < 3) {
+      return <Visitante[]>[];
     }
     if (!this.visitantesDb) {
       this.visitantesDb = [];

@@ -50,8 +50,6 @@ export class VisitantePage {
     // If we navigated to this page, we will have an item available as a nav param
     this.visitante = navParams.get('visitante');
 
-    this.goBackToVisitantes(false);
-
   }
 
   public onSubmit(updated:any) {
@@ -61,7 +59,7 @@ export class VisitantePage {
     if (this.visitante.id) {
       this.dataService.putVisitante(this.visitante).subscribe(
         (response: Response) => {
-          this.goBackToVisitantes(true);
+          this.goBackToVisitantes();
 
         },
         error => console.log(error),
@@ -95,13 +93,13 @@ export class VisitantePage {
     profileModal.onDidDismiss(dataVisitante => {
       //visitante = dataVisitante;
 
-      this.goBackToVisitantes(true);
+      this.goBackToVisitantes();
 
     });
     profileModal.present();
   }
 
-  goBackToVisitantes(regresar: boolean) {
+  goBackToVisitantes() {
 
     if (this.visitante.id) {
       this.presentLoadingDefault(true);
@@ -115,9 +113,7 @@ export class VisitantePage {
           this.visitante.visita = visitaTmp;
           this.visitante.random_num = Math.random();
 
-          if (regresar) {
-            this.navCtrl.pop().then(() => this.navParams.get('resolve')(this.visitante));
-          }
+          this.navCtrl.pop().then(() => this.navParams.get('resolve')(this.visitante));
         },
         error => {
           console.log(error);
