@@ -7,7 +7,7 @@ import {ENV} from "../../config/environment-dev";
 })
 export class AboutPage {
 
-  versionNumber: any = "4.44";
+  versionNumber: any = "4.45";
 
   tabCont: number = 0;
 
@@ -17,9 +17,11 @@ export class AboutPage {
 
   }
 
-  tapEvent() {
+  tapShow() {
     this.tabCont++;
-    console.log("tap>", this.tabCont);
+  }
+  tapHide() {
+    this.tabCont = 0;
   }
 
 }

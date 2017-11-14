@@ -23,3 +23,7 @@ y lo pongo en: http://recepcion.cimav.edu.mx/visitor.apk
 
 Cambiarse entre Dev y Prod no esta funcionando
 Ponerlo como hard-code
+
+
+The Ionic CLI (local version) has an update available (3.10.3 => 3.18.0)! Woul
+Note: You can downgrade to your old version by running: npm install --save --save-exact ionic@3.10.3
