@@ -6,8 +6,9 @@ import {Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import {Observable} from 'rxjs/Rx';
 import {Visitante, Visita, Persona, TipoVisita} from "./model";
-import {isUndefined} from "ionic-angular/util/util";
 import {ENV} from "../config/environment-dev";
+import {Platform} from "ionic-angular";
+import {NativeStorage} from "ionic-native";
 
 @Injectable()
 export class DataService {
@@ -33,22 +34,38 @@ export class DataService {
     new TipoVisita(7, 'Otro')
   ];
 
-  private sede: number;
+  // private sede: number;
 
-  constructor(private _http: Http) {
+  constructor(private _http: Http, platform: Platform) {
 
+    platform.ready().then(() => {
+      console.log('1> ', platform.is('core'));
+      if (platform.is('core')) {
+        ENV.SEDE = Number(window.localStorage.getItem('id_sede_registro'));
+        console.log('3> ', ENV.SEDE);
+        if (!ENV.SEDE || ENV.SEDE > 4) {
+          window.localStorage.setItem('id_sede_registro', '1');
+          ENV.SEDE = 1;
+        }
+      } else {
+        NativeStorage.getItem('id_sede_registro').then(sede_id => {
+          ENV.SEDE = sede_id;
+          console.log('2> ', ENV.SEDE, ': ', sede_id);
+          if (!ENV.SEDE || ENV.SEDE > 4) {
+            NativeStorage.setItem('id_sede_registro', '1');
+            ENV.SEDE = 1;
+          }
+        });
+      }
+    });
+
+    console.log('4> ', ENV.SEDE);
       /*
       1 Chi
       2 Juaréz
       3 Mty
       4 Dgo
       */
-
-      this.sede = Number(window.localStorage.getItem('id_sede_registro'));
-      if (!this.sede || this.sede > 4) {
-          window.localStorage.setItem('id_sede_registro', '1');
-          this.sede = 1;
-      }
 
     this.headers = new Headers();
 //    this.headers.append('Authorization', 'QURNSU5fUk9MRTphZG1pbg'); // 'Q0hJSFVBSFVBLk5PUlRFOmFkbWlu'); //QURNSU5fUk9MRTphZG1pbg
@@ -152,7 +169,11 @@ export class DataService {
   }
 
   public getProveedores = (): Observable<Persona[]> => {
-    return this._http.get(ENV.API_URL +  '/proveedores/' + this.sede, {headers: this.headers})
+
+    console.log('5> ', ENV.SEDE);
+
+
+    return this._http.get(ENV.API_URL +  '/proveedores/' +ENV.SEDE, {headers: this.headers})
         .map((response: Response) => {
           this.proveedoresDB =  <Persona[]>response.json();
           return this.proveedoresDB;
@@ -163,7 +184,7 @@ export class DataService {
   public postVisita = (visita: Visita): Observable<Visita> => {
     var link = ENV.API_URL +  '/visitas/';
     visita.persona_id = visita.persona.id;
-    visita.sede = this.sede;
+    visita.sede = ENV.SEDE;
     let toAdd = JSON.stringify(visita);
     return this._http.post(link, toAdd, { headers: this.headers })
       .map((response: Response) => <Visita>response.json());
@@ -179,7 +200,7 @@ export class DataService {
   }
 
   public getVisitasActuales = (): Observable<Visita[]> => {
-    return this._http.get(ENV.API_URL +  '/visitas_adentro/' + this.sede ,  { headers: this.headers })
+    return this._http.get(ENV.API_URL +  '/visitas_adentro/' + ENV.SEDE ,  { headers: this.headers })
       .map((response: Response) => {
         this.visitasAdentroDb = <Visita[]>response.json();
         return  this.visitasAdentroDb;

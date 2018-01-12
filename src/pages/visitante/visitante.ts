@@ -21,7 +21,7 @@ export class VisitantePage {
 
   @ViewChild('canvasEle') canvasEle: ElementRef;
 
-  private ctx: CanvasRenderingContext2D;
+  //private ctx: CanvasRenderingContext2D;
 
   private isDesktop: boolean = false;
   private isAndroid: boolean = false;
@@ -138,6 +138,7 @@ export class VisitantePage {
   }
 
   showImagen() {
+    // marco verde
     if(this.statusCamera == 2) {
       return "none";
     } else {
@@ -146,6 +147,7 @@ export class VisitantePage {
   }
 
   showCanvas() {
+    // marco amarillo
     if(this.statusCamera == 2) {
       return "flex";
     } else {
@@ -172,12 +174,12 @@ export class VisitantePage {
           this.visitante.random_num = Math.random();
 
           let canvas = this.canvasEle.nativeElement;
-          this.ctx = canvas.getContext('2d');
           var image = new Image();
           image.src = base64Image;
 
           image.onload = () => {
-            this.ctx.drawImage(image, 0, 0, 300, 300);
+            let ctx : CanvasRenderingContext2D = canvas.getContext('2d');
+            ctx.drawImage(image, 0, 0, 300, 300);
           }
 
         }
@@ -202,25 +204,25 @@ export class VisitantePage {
         this.visitante.random_num = Math.random();
 
         let canvas = this.canvasEle.nativeElement;
-        this.ctx = canvas.getContext('2d');
         var image = new Image();
         image.src = this.visitante.avatar;
-
         /*
         var wRatio = canvas.width / image.width;
         var hRatio = canvas.height / image.height;
         var ratio = Math.min (wRatio, hRatio);
         this.ctx.drawImage(image, 0, 0, canvas.width,canvas.height,   0,0,image.width*ratio,image.height*ratio);
 */
-        var wRatio = canvas.width / image.width;
-        var hRatio = canvas.height / image.height;
-        var ratio = Math.min (wRatio, hRatio);
 
         //image.width = image.width * wRatio;
         //image.height = image.height * hRatio;
 
+
         image.onload = () => {
-          this.ctx.drawImage(image, 0, 0,image.width, image.height,0,0,canvas.width*ratio, canvas.height*ratio);
+          var wRatio = canvas.width / image.width;
+          var hRatio = canvas.height / image.height;
+          var ratio = Math.min (wRatio, hRatio);
+          let ctx : CanvasRenderingContext2D = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0,image.width, image.height,0,0,canvas.width*ratio, canvas.height*ratio);
         }
 
         /*

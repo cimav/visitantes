@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <div (tap)="tapShow($event)">Versión: {{versionNumber}}</div>
-  <h1 *ngIf="tabCont>6" (tap)="tapHide($event)">{{serverUrl}}</h1>
+  <h1 *ngIf="tabCont>=3" (tap)="tapHide($event)">{{serverUrl}}</h1>
   <ion-img src="assets/images/logo-cimav-medio.png" style="background: white;
     width: 500px;
     height: 300px; position: absolute;

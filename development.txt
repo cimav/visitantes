@@ -1,3 +1,8 @@
+## para debugear android
+ sudo ionic cordova run android --device --debug --livereload
+
+ En Chrome se deben ver las carpetas naranjas
+
 
 ##### Para Web
 
@@ -27,3 +32,9 @@ Ponerlo como hard-code
 
 The Ionic CLI (local version) has an update available (3.10.3 => 3.18.0)! Woul
 Note: You can downgrade to your old version by running: npm install --save --save-exact ionic@3.10.3
+
+The Ionic CLI (local version) has an update available (3.18.0 => 3.19.0)! Would you like to install it?
+Note: You can downgrade to your old version by running: npm i --save -E ionic@3.18.0
+
+Try:
+npm install ionic-angular@latest --save
