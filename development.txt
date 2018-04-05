@@ -3,6 +3,9 @@
 
  En Chrome se deben ver las carpetas naranjas
 
+Cada versino:
+Hay que poner SEDE y About
+
 
 ##### Para Web
 
@@ -22,6 +25,7 @@ sudo ionic cordova build android --release
 lo renombro. ej. visitor.apk
 
 y lo pongo en: http://recepcion.cimav.edu.mx/visitor.apk
+
 
 ### npm install --save --save-exact ionic@3.10.3
 

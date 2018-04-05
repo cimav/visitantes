@@ -164,7 +164,7 @@ export class VisitantesPage {
     if (isUndefined( vis.random_num)) {
       vis.random_num = Math.random();
     }
-    return ENV.API_URL + "/visitantes/avatar/" + vis.id + "?c=" + vis.random_num;
+    return ENV.API_URL + "/visitantes/thumb/" + vis.id + "?c=" + vis.random_num;
   }
 
 }

@@ -10,5 +10,6 @@ export const ENV = {
 
     API_URL    : 'http://10.0.4.40:3003',
 
-    SEDE: 3 // Mty
+//    SEDE: 3 // Mty
+    SEDE: 1 // Chi
 };
