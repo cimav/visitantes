@@ -53,6 +53,7 @@ export class Persona {
   tipo: number;
   sede: number;
   nombre: string;
+  meses_subcontrato: number;
 }
 
 export class CameraData {

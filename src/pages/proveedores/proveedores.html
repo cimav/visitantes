@@ -16,7 +16,9 @@
     <ion-list>
 
         <ion-item *ngFor="let proveedor of proveedores">
-            <h2>{{proveedor.nombre}}</h2>
+            <p style="float:left; font-size: large;">{{proveedor.nombre}} </p>
+            <p style="float: right; font-size: large;"><ion-icon *ngIf="proveedor.meses_subcontrato==1" name="alarm"></ion-icon></p>
+            <p style="float: right; font-size: large;"><ion-icon *ngIf="proveedor.meses_subcontrato<1" name="hand"></ion-icon></p>
         </ion-item>
 
     </ion-list>
