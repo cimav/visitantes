@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import {Observable} from 'rxjs/Rx';
-import {Visitante, Visita, Persona, TipoVisita} from "./model";
+import {Visitante, Visita, Persona, TipoVisita, Programada, VisitPeople} from "./model";
 import {ENV} from "../config/environment-dev";
 import {Platform} from "ionic-angular";
 import {NativeStorage} from "ionic-native";
@@ -19,6 +19,7 @@ export class DataService {
   private personasDB: Persona[];
   private headers: Headers;
   private proveedoresDB: Persona[];
+  //private programadas: Programada[];
 
   //private host_: String = 'http://10.0.2.131:3000'; // local
   //private host_: String = 'http://10.0.0.27:3003'; // server
@@ -229,6 +230,24 @@ export class DataService {
 
   private handleError (error: Response | any) {
     return Observable.throw('errMsg');
+  }
+
+  public getProgramadas = (): Observable<Programada[]> => {
+    return this._http.get(ENV.API_URL +  '/visits', {headers: this.headers})
+        .map((response: Response) => {
+          //this.programadas =  <Programada[]>response.json();
+          return  <Programada[]>response.json();
+        });
+        //.catch(this.handleError);
+  }
+
+  public putVisitPeople = (visit: VisitPeople): Observable<VisitPeople> => {
+    var link = ENV.API_URL +  '/visits_people/' + visit.id;
+    var visJson = JSON.stringify(visit); // y(visit, this.replacer);
+    return this._http.put(link, visJson, {headers: this.headers})
+        .map((response: Response) => {
+          return  <VisitPeople>response.json();
+        });
   }
 
 }

@@ -1,0 +1,27 @@
+
+<ng-container *ngFor="let visit of _programada.visit_people; let idx = index">
+
+    <ion-item *ngIf="hasGroup(idx)" color="light">
+        <span style="color: gray;" color="light">{{personType(visit.person_type)}}</span>
+    </ion-item>
+
+    <ion-item-sliding #slidingItem>
+        <ion-item>
+            <span style="font-size: large; padding-left: 25px;">{{visit.name}}</span>
+            <span style="float: right; color:#666; ">
+                <span style="right: 114px; position: absolute;">
+                    <span *ngIf="visit.check_in != null"><ion-icon name="log-in" style="padding-right: 5px;"></ion-icon>{{logIn(visit)}}</span>
+                </span>
+                <span style="width:180px; ">
+                    <span *ngIf="visit.check_out != null" style="padding-left: 15px;"><ion-icon name="log-out" style="padding-right: 5px;"></ion-icon>{{logOut(visit)}}</span>
+                </span>
+            </span>
+        </ion-item>
+        <ion-item-options>
+            <button ion-button *ngIf="visit.check_in == null"  color="primary" (click)="checkIn(visit, slidingItem)"><ion-icon name="log-in" style=""></ion-icon>Entrada</button>
+            <button ion-button *ngIf="visit.check_in != null && visit.check_out == null" color="secondary" (click)="checkOut(visit, slidingItem)"><ion-icon name="log-out" style=""></ion-icon>Salida</button>
+        </ion-item-options>
+    </ion-item-sliding>
+
+</ng-container>
+

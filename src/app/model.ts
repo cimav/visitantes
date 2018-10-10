@@ -75,4 +75,24 @@ export class TipoVisita {
   }
 }
 
+export class Programada {
+  id: number;
+  institution: string;
+  resp_name: string;
+  status: number;
+  date: Date;
+
+  visit_people: VisitPeople[];
+}
+
+export class VisitPeople {
+  id: number;
+  visit_id: number;
+  name: string;
+  person_type: number;
+  check_in: Date;
+  check_out: Date;
+
+}
+
 

@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Visitas Programadas
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-refresher (ionRefresh)="load($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+
+        <ng-container *ngFor="let programada of programadas">
+
+            <ion-list-header>
+                <p style="float:left; font-size: large; font-weight: 500;"><ion-icon name="school"></ion-icon> {{programada.institution}} </p>
+                <p style="float:right; font-size: large;"><ion-icon name="man"></ion-icon> {{programada.resp_name}} </p>
+            </ion-list-header>
+
+            <visit-people [programada]=programada></visit-people>
+
+            <ion-item-divider> </ion-item-divider>
+
+        </ng-container>
+
+    </ion-list>
+
+</ion-content>

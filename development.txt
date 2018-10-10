@@ -3,6 +3,8 @@
 
  En Chrome se deben ver las carpetas naranjas
 
+ionic serve --no-livereload
+
 Cada versino:
 Hay que poner SEDE y About
 
