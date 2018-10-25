@@ -12,7 +12,9 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-list>
+    <h1 *ngIf="programadas.length == 0"  style="padding: 0 12px; font-size: 2rem; color: #424242;">No hay Visitas Programadas</h1>
+
+    <ion-list *ngIf="programadas.length > 0">
 
         <ng-container *ngFor="let programada of programadas">
 

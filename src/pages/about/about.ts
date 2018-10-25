@@ -24,7 +24,7 @@ export class AboutPage {
       case 4: sede_txt = 'Durango'; break;
     }
 
-    this.versionNumber = "1.31 | " + sede_txt;
+    this.versionNumber = "1.40 | Programadas | + " + sede_txt;
   }
 
   tapShow() {

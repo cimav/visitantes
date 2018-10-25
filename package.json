@@ -29,7 +29,7 @@
         "@angular/platform-server": "2.2.1",
         "@ionic/storage": "1.1.7",
         "cordova-android": "^6.2.3",
-        "cordova-browser": "^4.1.0",
+        "cordova-browser": "^5.0.4",
         "cordova-plugin-app-version": "^0.1.9",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.2.0",

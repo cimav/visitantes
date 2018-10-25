@@ -38,7 +38,7 @@ export class VisitPeoplePage {
 
     }
 
-    static personType(t:number):string {
+    personType(t:number):string {
         switch (t) {
             case 1: {return 'Estudiante';}
             case 2: {return 'Docente';}
