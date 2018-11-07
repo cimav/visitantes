@@ -3,6 +3,11 @@
 
     <ion-item *ngIf="hasGroup(idx)" color="light">
         <span style="color: gray;" color="light">{{personType(visit.person_type)}}</span>
+        <span *ngIf="visit.person_type == 1" style="color: gray; float: right" color="light" class="contador">
+            No han llegado<ion-badge color="light">{{noHanLlegado(visit.person_type)}}</ion-badge>
+            Adentro<ion-badge color="dark">{{adentro(visit.person_type)}}</ion-badge>
+            Salieron<ion-badge color="dark">{{salieron(visit.person_type)}}</ion-badge>
+        </span>
     </ion-item>
 
     <ion-item-sliding #slidingItem>

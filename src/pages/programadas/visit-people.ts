@@ -48,6 +48,16 @@ export class VisitPeoplePage {
         }
     }
 
+    noHanLlegado(ty:number):number {
+        return this._programada.visit_people.filter(visit => visit.person_type && !visit.check_in).length;
+    }
+    adentro(ty:number):number {
+        return this._programada.visit_people.filter(visit => visit.person_type === ty && visit.check_in && !visit.check_out).length;
+    }
+    salieron(ty:number):number {
+        return this._programada.visit_people.filter(visit => visit.person_type === ty && visit.check_out).length;
+    }
+
     private checkIn(visit: VisitPeople, itemSliding: ItemSliding) {
         visit.check_in = new Date();
         itemSliding.close();

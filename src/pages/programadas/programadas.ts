@@ -7,6 +7,7 @@ import {Component} from "@angular/core";
 import {LoadingController} from "ionic-angular";
 import {DataService} from "../../app/data.service";
 import {Programada} from "../../app/model";
+import {ENV} from "../../config/environment-dev";
 
 @Component({
     selector: 'page-programadas',
@@ -58,6 +59,10 @@ export class ProgramadasPage {
         } else {
             this.loading.dismiss();
         }
+    }
+
+    sede(): number {
+        return ENV.SEDE;
     }
 
 }

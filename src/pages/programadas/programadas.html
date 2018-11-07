@@ -14,7 +14,9 @@
 
     <h1 *ngIf="programadas.length == 0"  style="padding: 0 12px; font-size: 2rem; color: #424242;">No hay Visitas Programadas</h1>
 
-    <ion-list *ngIf="programadas.length > 0">
+    <h1 *ngIf="sede() > 1"  style="padding: 0 12px; font-size: 2rem; color: #424242;">Las Visitas Programadas solo aplican para Sede Chihuahua</h1>
+
+    <ion-list *ngIf="programadas.length > 0 && sede() == 1">
 
         <ng-container *ngFor="let programada of programadas">
 
