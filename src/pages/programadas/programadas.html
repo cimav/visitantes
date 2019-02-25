@@ -12,25 +12,27 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <h1 *ngIf="programadas.length == 0"  style="padding: 0 12px; font-size: 2rem; color: #424242;">No hay Visitas Programadas</h1>
-
     <h1 *ngIf="sede() > 1"  style="padding: 0 12px; font-size: 2rem; color: #424242;">Las Visitas Programadas solo aplican para Sede Chihuahua</h1>
 
-    <ion-list *ngIf="programadas.length > 0 && sede() == 1">
+    <div *ngIf="sede() == 1">
+        <h1 *ngIf="programadas.length == 0"  style="padding: 0 12px; font-size: 2rem; color: #424242;">No hay Visitas Programadas</h1>
 
-        <ng-container *ngFor="let programada of programadas">
+        <ion-list *ngIf="programadas.length > 0 && sede() == 1">
 
-            <ion-list-header>
-                <p style="float:left; font-size: large; font-weight: 500;"><ion-icon name="school"></ion-icon> {{programada.institution}} </p>
-                <p style="float:right; font-size: large;"><ion-icon name="man"></ion-icon> {{programada.resp_name}} </p>
-            </ion-list-header>
+            <ng-container *ngFor="let programada of programadas">
 
-            <visit-people [programada]=programada></visit-people>
+                <ion-list-header>
+                    <p style="float:left; font-size: large; font-weight: 500;"><ion-icon name="school"></ion-icon> {{programada.institution}} </p>
+                    <p style="float:right; font-size: large;"><ion-icon name="man"></ion-icon> {{programada.resp_name}} </p>
+                </ion-list-header>
 
-            <ion-item-divider> </ion-item-divider>
+                <visit-people [programada]=programada></visit-people>
 
-        </ng-container>
+                <ion-item-divider> </ion-item-divider>
 
-    </ion-list>
+            </ng-container>
+
+        </ion-list>
+    </div>
 
 </ion-content>

@@ -9,8 +9,9 @@ export const ENV = {
 //    API_URL    : 'http://10.0.2.131:3001',
 //    API_URL    : 'http://10.0.0.135:3001',
 
+//    API_URL    : '10.0.3.95',
     API_URL    : 'http://10.0.4.40:3003',
 
-//    SEDE: 3 // Mty
-    SEDE: 1 // Chi
+    SEDE: 3 // Mty
+//    SEDE: 1 // Chi
 };

@@ -31,6 +31,7 @@ y lo pongo en: http://recepcion.cimav.edu.mx/visitor.apk
 
 ### npm install --save --save-exact ionic@3.10.3
 
+(3.19.0 => 4.10.3)! Would
 
 Cambiarse entre Dev y Prod no esta funcionando
 Ponerlo como hard-code

@@ -24,7 +24,7 @@ export class AboutPage {
       case 4: sede_txt = 'Durango'; break;
     }
 
-    this.versionNumber = "1.50 | Contador | " + sede_txt;
+    this.versionNumber = "1.53 | Mty | " + sede_txt;
   }
 
   tapShow() {
